@@ -24,10 +24,6 @@ RUN apk update && \
     /usr/sbin/groupadd -g 10001 -r appgroup && \
     /usr/sbin/useradd -M -g 10001 -r -u 10001 appuser
 
-RUN yum update -y && yum install -y shadow-utils \
-    && groupadd -g 10001 -r appgroup \
-    && useradd -M -g 10001 -r -u 10001 appuser
-
 ARG JAR_FILE=provider/unit-aws/target/*spring-boot.jar
 
 WORKDIR /
