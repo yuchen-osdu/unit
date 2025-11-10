@@ -287,6 +287,16 @@ class TestUnits(unittest.TestCase):
         except ApiException as e:
             self.fail(str(e))
 
+    def test_get_units_by_unknown_symbol_using_get(self):
+        try:
+            api_response = self.api_instance.get_units_by_symbol_using_get(symbol='unknown-symbol', data_partition_id=self.env.data_partition_id)
+        except ApiException as e:
+            self.assertEqual(400, e.status)
+            error_body = json.loads(e.body)
+            self.assertEqual(400, error_body["code"])
+            self.assertEqual("Bad Request", error_body["reason"])
+            self.assertIn("The symbol 'unknown-symbol' does not exist.", error_body["message"])
+
     def test_post_preferred_units_by_measurement_using_post(self):
         try:
             essence = MeasurementEssenceImpl(ancestry='Time_Per_Length.Acoustic_Slowness', type='UM')

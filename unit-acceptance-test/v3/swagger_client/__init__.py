@@ -55,6 +55,7 @@ from .apis.healthcheck_api import HealthcheckApi
 from .apis.infoapi_api import InfoapiApi
 from .apis.infoapi_api_slash import InfoapiApiSlash
 from .apis.unitapiv3_api import Unitapiv3Api
+from .apis.swagger_api_docs import SwaggerApiDocs
 
 # import ApiClient
 from .api_client import ApiClient
