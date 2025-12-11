@@ -688,7 +688,6 @@ unknown
 The following software have components provided under the terms of this license:
 
 - JUnit (from http://junit.org)
-- xml-apis (from https://repo1.maven.org/maven2/xml-apis/xml-apis)
 
 ========================================================================
 xpp

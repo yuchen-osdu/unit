@@ -17,7 +17,11 @@
 
 package org.opengroup.osdu.unitservice.logging;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -31,6 +35,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
+import org.opengroup.osdu.unitservice.constant.UnitServiceRole;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 public class AuditLoggerTest {
 
@@ -43,139 +50,210 @@ public class AuditLoggerTest {
   @Mock
   private DpsHeaders dpsHeaders;
 
+  @Mock
+  private HttpServletRequest httpRequest;
+
+  private List<String> resource;
+  private List<String> requiredGroupsForAction;
 
   @Before
   public void setup() {
     MockitoAnnotations.initMocks(this);
+
+    resource = Collections.singletonList("1");
+    requiredGroupsForAction = Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER);
     when(dpsHeaders.getUserEmail()).thenReturn("user");
+    when(httpRequest.getHeader("X-Forwarded-For")).thenReturn("127.0.0.0:1234");
+    when(httpRequest.getHeader("user-agent")).thenReturn("testAgent");
   }
 
   @Test
   public void should_writeReadCatalogLastModifiedEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readCatalogLastModifiedSuccess(resource);
+    this.sut.readCatalogLastModifiedSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
+  public void should_writeReadCatalogLastModifiedEvent_whenIPv4XForwardedForIPHeaderIsPopulated() {
+    when(httpRequest.getHeader("X-Forwarded-For")).thenReturn("111.111.111.111:1234");
+
+    sut.readCatalogLastModifiedSuccess(resource, requiredGroupsForAction);
+
+    verify(log, times(1)).audit(any());
+  }
+
+  @Test
+  public void should_writeReadCatalogLastModifiedEvent_whenIPv4XForwardedForIPHeaderIsNotPopulated() {
+    when(httpRequest.getHeader("X-Forwarded-For")).thenReturn(null);
+    when(httpRequest.getRemoteAddr()).thenReturn("0.0.0.0:1234");
+
+    sut.readCatalogLastModifiedSuccess(resource, requiredGroupsForAction);
+
+    verify(log, times(1)).audit(any());
+  }
+
+  @Test
+  public void should_writeReadCatalogLastModifiedEvent_whenIPv4IPHeadersContainMultipleIPs() {
+    when(httpRequest.getHeader("X-Forwarded-For")).thenReturn("0.0.0.0:1234,0.0.0.1:1234");
+    sut.readCatalogLastModifiedSuccess(resource, requiredGroupsForAction);
+
+    verify(log, times(1)).audit(any());
+  }
+
+  @Test
+  public void should_writeReadCatalogLastModifiedEvent_whenIPv6XForwardedForIPHeaderIsPopulated() {
+    when(httpRequest.getHeader("X-Forwarded-For")).thenReturn("[0000:0000:0000:0000:0000:0000:0000:0000]:1234");
+
+    sut.readCatalogLastModifiedSuccess(resource, requiredGroupsForAction);
+
+    verify(log, times(1)).audit(any());
+  }
+
+  @Test
+  public void should_writeReadCatalogLastModifiedEvent_whenIPv6XForwardedForIPHeaderIsNotPopulated() {
+    when(httpRequest.getHeader("X-Forwarded-For")).thenReturn(null);
+    when(httpRequest.getRemoteAddr()).thenReturn("[0000:0000:0000:0000:0000:0000:0000:0000]:1234");
+
+    sut.readCatalogLastModifiedSuccess(resource, requiredGroupsForAction);
+
+    verify(log, times(1)).audit(any());
+  }
+
+  @Test
+  public void should_writeReadCatalogLastModifiedEvent_whenIPv6IPHeadersContainMultipleIPs() {
+    when(httpRequest.getHeader("X-Forwarded-For")).thenReturn("[0000:0000:0000:0000:0000:0000:0000:0000]:1234,[0000:0000:0000:0000:0000:0000:0000:0001]:1234");
+    sut.readCatalogLastModifiedSuccess(resource, requiredGroupsForAction);
+
+    verify(log, times(1)).audit(any());
+  }
+
+  @Test
   public void should_writeReadCatalogEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readCatalogSuccess(resource);
+    this.sut.readCatalogSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadSpecificMeasurementEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readSpecificMeasurementSuccess(resource);
+    this.sut.readSpecificMeasurementSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadUnitsSuccessEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readUnitsSuccess(resource);
+    this.sut.readUnitsSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadUnitEssenceEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readUnitEssenceSuccess(resource);
+    this.sut.readUnitEssenceSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadUnitsByUnitSymbolEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readUnitsByUnitSymbolSuccess(resource);
+    this.sut.readUnitsByUnitSymbolSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadUnitByUnitSymbolEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readUnitByUnitSymbolSuccess(resource);
+    this.sut.readUnitByUnitSymbolSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadUnitByMeasurementEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readUnitByMeasurementSuccess(resource);
+    this.sut.readUnitByMeasurementSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadUnitsByMeasurementEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readUnitsByMeasurementSuccess(resource);
+    this.sut.readUnitsByMeasurementSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadMeasurementsEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readMeasurementsSuccess(resource);
+    this.sut.readMeasurementsSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadPreferredUnitsByMeasurementEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readPreferredUnitsByMeasurementSuccess(resource);
+    this.sut.readPreferredUnitsByMeasurementSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeReadUnitSystemEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.readUnitSystemSuccess(resource);
+    this.sut.readUnitSystemSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeSearchMeasurementsByKeywordEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.searchMeasurementsByKeyword(resource);
+    this.sut.searchMeasurementsByKeyword(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeGetUnitMapsEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.getUnitMapsSuccess(resource);
+    this.sut.getUnitMapsSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
   public void should_writeGetMeasurementMapsEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.getMeasurementMapsSuccess(resource);
+    this.sut.getMeasurementMapsSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 
   @Test
+  public void should_throwIllegalArgumentException_whenUserIpAddressIsNull() {
+    lenient().when(httpRequest.getHeader("X-Forwarded-For")).thenReturn(null);
+    lenient().when(httpRequest.getHeader("X-Client-IP")).thenReturn(null);
+    lenient().when(httpRequest.getRemoteAddr()).thenReturn(null);
+
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+      sut.getMeasurementMapsSuccess(resource, requiredGroupsForAction);
+    });
+    assertNotNull(exception);
+    assertEquals("User's IP address is not provided for audit events.", exception.getMessage());
+  }
+
+  @Test
+  public void should_throwIllegalArgumentException_whenUserAgentIsNull() {
+    when(httpRequest.getHeader("user-agent")).thenReturn(null);
+
+    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+      sut.getMeasurementMapsSuccess(resource, requiredGroupsForAction);
+    });
+    assertNotNull(exception);
+    assertEquals("User's agent is not provided for audit events.", exception.getMessage());
+  }
+
+  @Test
   public void should_writeGetMapStateEvent() {
-    List<String> resource = Collections.singletonList("1");
-    this.sut.getMapStatesSuccess(resource);
+    this.sut.getMapStatesSuccess(resource, requiredGroupsForAction);
 
     verify(this.log, times(1)).audit(any());
   }
 }
-
