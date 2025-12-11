@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.opengroup.osdu.core.common.model.http.AppError;
+import org.opengroup.osdu.unitservice.constant.UnitServiceRole;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.opengroup.osdu.unitservice.interfaces.ABCD;
 import org.opengroup.osdu.unitservice.interfaces.Catalog;
@@ -106,7 +107,9 @@ public class UnitApiV3 {
   @GetMapping(value = "/catalog", produces = MediaType.APPLICATION_JSON_VALUE)
   public Catalog getCatalog() {
     CatalogResponse catalogResponse = catalog.getCatalogResponse();
-    auditLogger.readCatalogSuccess(Collections.singletonList(catalogResponse.toString()));
+    auditLogger.readCatalogSuccess(
+      Collections.singletonList(catalogResponse.toString()),
+      Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
     return catalog.getCatalogResponse();
   }
 
@@ -132,8 +135,9 @@ public class UnitApiV3 {
   public CatalogLastModified getLastModified() {
     CatalogLastModified catalogLastModified = new CatalogLastModifiedImpl(
         catalog.getLastModified());
-    auditLogger
-        .readCatalogLastModifiedSuccess(Collections.singletonList(catalogLastModified.toString()));
+    auditLogger.readCatalogLastModifiedSuccess(
+      Collections.singletonList(catalogLastModified.toString()),
+      Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
     return catalogLastModified;
   }
 
@@ -171,7 +175,8 @@ public class UnitApiV3 {
       QueryResult queryResultForMeasurements = Utility
           .createQueryResultForMeasurements(catalog.getMeasurements(offset, limit));
       auditLogger.readMeasurementsSuccess(
-          Collections.singletonList(queryResultForMeasurements.toString()));
+        Collections.singletonList(queryResultForMeasurements.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return queryResultForMeasurements;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -206,7 +211,9 @@ public class UnitApiV3 {
     try {
       MeasurementEssenceImpl essence = request.getMeasurementEssence();
       Measurement measurement = catalog.postMeasurement(essence);
-      auditLogger.readSpecificMeasurementSuccess(Collections.singletonList(measurement.toString()));
+      auditLogger.readSpecificMeasurementSuccess(
+        Collections.singletonList(measurement.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return measurement;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -240,7 +247,9 @@ public class UnitApiV3 {
 
     try {
       Measurement measurement = catalog.getMeasurement(ancestry);
-      auditLogger.readSpecificMeasurementSuccess(Collections.singletonList(measurement.toString()));
+      auditLogger.readSpecificMeasurementSuccess(
+        Collections.singletonList(measurement.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return measurement;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -279,7 +288,9 @@ public class UnitApiV3 {
     assertRange(offset, limit);
     try {
       QueryResult queryResultForUnits = createQueryResultForUnits(catalog.getUnits(offset, limit));
-      auditLogger.readUnitsSuccess(Collections.singletonList(queryResultForUnits.toString()));
+      auditLogger.readUnitsSuccess(
+        Collections.singletonList(queryResultForUnits.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return queryResultForUnits;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -312,7 +323,9 @@ public class UnitApiV3 {
     try {
       UnitEssenceImpl essence = request.getUnitEssence();
       Unit unit = catalog.postUnit(essence);
-      auditLogger.readUnitEssenceSuccess(Collections.singletonList(unit.toString()));
+      auditLogger.readUnitEssenceSuccess(
+        Collections.singletonList(unit.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return unit;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -344,8 +357,9 @@ public class UnitApiV3 {
   public QueryResult getUnitsBySymbol(@RequestParam(value = "symbol") String symbol) {
     try {
       QueryResult queryResultForUnits = createQueryResultForUnits(catalog.getUnitsBySymbol(symbol));
-      auditLogger
-          .readUnitsByUnitSymbolSuccess(Collections.singletonList(queryResultForUnits.toString()));
+      auditLogger.readUnitsByUnitSymbolSuccess(
+        Collections.singletonList(queryResultForUnits.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return queryResultForUnits;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -380,7 +394,9 @@ public class UnitApiV3 {
       @RequestParam("symbol") String symbol) {
     try {
       Unit unit = catalog.getUnitBySymbol(namespaces, symbol);
-      auditLogger.readUnitByUnitSymbolSuccess(Collections.singletonList(unit.toString()));
+      auditLogger.readUnitByUnitSymbolSuccess(
+        Collections.singletonList(unit.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return unit;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -414,8 +430,9 @@ public class UnitApiV3 {
       MeasurementEssenceImpl essence = request.getMeasurementEssence();
       QueryResult queryResultForUnits = createQueryResultForUnits(
           catalog.postUnitsByMeasurement(essence));
-      auditLogger
-          .readUnitByMeasurementSuccess(Collections.singletonList(queryResultForUnits.toString()));
+      auditLogger.readUnitByMeasurementSuccess(
+        Collections.singletonList(queryResultForUnits.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return queryResultForUnits;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -447,8 +464,9 @@ public class UnitApiV3 {
     try {
       QueryResult queryResultForUnits = createQueryResultForUnits(
           catalog.getUnitsByMeasurement(ancestry));
-      auditLogger
-          .readUnitsByMeasurementSuccess(Collections.singletonList(queryResultForUnits.toString()));
+      auditLogger.readUnitsByMeasurementSuccess(
+        Collections.singletonList(queryResultForUnits.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return queryResultForUnits;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -482,9 +500,9 @@ public class UnitApiV3 {
       MeasurementEssenceImpl essence = request.getMeasurementEssence();
       QueryResult queryResultForUnits = createQueryResultForUnits(
           catalog.postPreferredUnitsByMeasurement(essence));
-      auditLogger
-          .readPreferredUnitsByMeasurementSuccess(
-              Collections.singletonList(queryResultForUnits.toString()));
+      auditLogger.readPreferredUnitsByMeasurementSuccess(
+        Collections.singletonList(queryResultForUnits.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return queryResultForUnits;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -738,7 +756,8 @@ public class UnitApiV3 {
       ConversionResult conversionABCDBySymbols = catalog
           .getConversionABCDBySymbols(namespaces, fromSymbol, toSymbol);
       auditLogger.readConversionABCDBySymbolsSuccess(
-          Collections.singletonList(conversionABCDBySymbols.toString()));
+        Collections.singletonList(conversionABCDBySymbols.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return conversionABCDBySymbols;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -772,7 +791,9 @@ public class UnitApiV3 {
             @RequestParam(value = "limit", defaultValue = "100") int limit) {
         assertRange(offset, limit);
         UnitSystemInfoResponse unitSystemInfoList = catalog.getUnitSystemInfoList(offset, limit);
-        auditLogger.readUnitSystemSuccess(Collections.singletonList(unitSystemInfoList.toString()));
+        auditLogger.readUnitSystemSuccess(
+          Collections.singletonList(unitSystemInfoList.toString()),
+          Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
         return catalog.getUnitSystemInfoList(offset, limit);
     }
 
@@ -918,7 +939,8 @@ public class UnitApiV3 {
       QueryResultImpl queryResultForMeasurements = Utility.createQueryResultForMeasurements(
           catalog.searchMeasurements(request.getQuery(), offset, limit));
       auditLogger.searchMeasurementsByKeyword(
-          Collections.singletonList(queryResultForMeasurements.toString()));
+        Collections.singletonList(queryResultForMeasurements.toString()),
+        Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
       return queryResultForMeasurements;
     } catch (Exception ex) {
       throw AppException.createBadRequest(ex.getMessage());
@@ -992,7 +1014,9 @@ public class UnitApiV3 {
             result.setTotalCount(allItems.size());
             result.setOffset(offset);
 
-            auditLogger.getUnitMapsSuccess(Collections.singletonList(result.toString()));
+            auditLogger.getUnitMapsSuccess(
+              Collections.singletonList(result.toString()),
+              Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
             return result;
         } catch (IndexOutOfBoundsException ex) {
             throw AppException.createBadRequest(ex.getMessage());
@@ -1030,7 +1054,9 @@ public class UnitApiV3 {
             result.setTotalCount(allItems.size());
             result.setOffset(offset);
 
-            auditLogger.getMeasurementMapsSuccess(Collections.singletonList(result.toString()));
+            auditLogger.getMeasurementMapsSuccess(
+              Collections.singletonList(result.toString()),
+              Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
             return result;
         } catch (IndexOutOfBoundsException ex) {
             throw AppException.createBadRequest(ex.getMessage());
@@ -1061,7 +1087,9 @@ public class UnitApiV3 {
             result.setTotalCount(catalog.getWellknownMapStates().size());
             result.setOffset(offset);
 
-            auditLogger.getMapStatesSuccess(Collections.singletonList(result.toString()));
+            auditLogger.getMapStatesSuccess(
+              Collections.singletonList(result.toString()),
+              Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER));
             return result;
         } catch (IndexOutOfBoundsException ex) {
             throw AppException.createBadRequest(ex.getMessage());

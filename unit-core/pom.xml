@@ -26,7 +26,7 @@
         <jackson-databind.version>2.15.1</jackson-databind.version>
         <jackson.version>2.15.1</jackson.version>
         <org-eclipse-jetty.version>12.0.8</org-eclipse-jetty.version>
-        <os-core-common.version>3.3.0</os-core-common.version>
+        <os-core-common.version>5.0.1</os-core-common.version>
     </properties>
 <dependencyManagement>
     <dependencies>
