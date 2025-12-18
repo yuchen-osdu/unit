@@ -12,6 +12,8 @@ global:
 data:
   logLevel: ""
   entitlementsHost: "http://entitlements"
+  otelJavaagentEnabled: "true"
+  otelExporterEndpoint: "http://opentelemetry-collector.opentelemetry.svc.cluster.local:4318"
   requestsCpu: "50m"
   requestsMemory: "275Mi"
   limitsCpu: "1"
