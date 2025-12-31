@@ -20,32 +20,34 @@ CUR_DIR=$(pwd)
 SCRIPT_SOURCE_DIR=$(dirname "$0")
 cd "$SCRIPT_SOURCE_DIR"
 
-# Required variables for the tests
-export MY_TENANT="${AWS_TENANT_NAME}"
-export EKS_CLUSTER_NAME="devops"
-export OSDU_INSTANCE_NAME="devops"
+# Set required environment variables early
+export VIRTUAL_SERVICE_HOST_NAME="${UNIT_HOST}"
+export MY_TENANT="osdu"
+export API_VER="v3"
+export PRIVILEGED_USER_TOKEN=$(curl --location ${TEST_OPENID_PROVIDER_URL} --header "Content-Type:application/x-www-form-urlencoded" --header "Authorization:Basic ${SERVICE_PRINCIPAL_AUTHORIZATION}" --data-urlencode "grant_type=client_credentials" --data-urlencode ${IDP_ALLOWED_SCOPES}  --http1.1 | jq -r '.access_token')
 
-export AWS_IDP_AUTH_FLOW="USER_PASSWORD_AUTH"
-export IDP_NAME="$(aws ssm get-parameter --name "/osdu/instances/${OSDU_INSTANCE_NAME}/config/idp/name" --query Parameter.Value --output text --region $AWS_REGION)"
-export AWS_IDP_CLIENT_ID="$(aws ssm get-parameter --name "/osdu/idp/${IDP_NAME}/client/id" --query Parameter.Value --output text --region $AWS_REGION)"
-export PRIVILEGED_USER_TOKEN=$(aws cognito-idp initiate-auth --region ${AWS_REGION} --auth-flow ${AWS_IDP_AUTH_FLOW} --client-id ${AWS_IDP_CLIENT_ID} --auth-parameters USERNAME=${AWS_IDP_AUTH_PARAMS_USER},PASSWORD=${AWS_IDP_AUTH_PARAMS_PASSWORD} --query AuthenticationResult.AccessToken --output text)
-export TEST_OPENID_PROVIDER_URL="https://keycloak.dev1.osdu-cimpl.opengroup.org/realms/osdu"
-export PRIVILEGED_USER_OPENID_PROVIDER_CLIENT_SECRET="${CIMPL_OPENID_PROVIDER_CLIENT_SECRET}"
-export HOST_URL="https://${AWS_DOMAIN}"
-export BASE_URL="https://${AWS_DOMAIN}"
-export VIRTUAL_SERVICE_HOST_NAME=$(aws ssm get-parameter --name "/osdu/eks/${EKS_CLUSTER_NAME}/instances/${OSDU_INSTANCE_NAME}/ingress/osdu-gateway/api/endpoint" --query Parameter.Value --output text --region $AWS_REGION)
 
-# Run the tests
-mvn clean test
-TEST_EXIT_CODE=$?
+python3 -m pip install --upgrade pip
 
-# Return to original directory
-cd "$CUR_DIR"
+python3 -m venv env
+source env/bin/activate
 
-# Copy test reports if output directory is specified
-if [ -n "$1" ]; then
-  mkdir -p "$1/unit-acceptance-test"
-  cp -R "$SCRIPT_SOURCE_DIR/target/surefire-reports/"* "$1/unit-acceptance-test"
+python3 -m pip install -r v3/requirements.txt
+
+echo ""
+echo ***RUNNING UNIT API $API_VER TESTS***
+python3 run_test.py
+TEST_STATUS=$?
+echo ***FINISHED UNIT API $API_VER TESTS***
+
+echo "TEST STATUS: $TEST_STATUS"
+
+#python3 -m pip uninstall -r requirements.txt -y
+deactivate
+rm -rf env/
+
+
+if [ $TEST_STATUS -ne 0 ]
+then
+    exit 1
 fi
-
-exit $TEST_EXIT_CODE
