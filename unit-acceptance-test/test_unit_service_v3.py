@@ -3,6 +3,7 @@
 import os
 import unittest
 import json
+import allure
 
 
 from v3.swagger_client.rest import ApiException
@@ -77,6 +78,8 @@ class TestEnvironment(object):
         return json.dumps(d)
 
 
+@allure.feature('Unit Service Info')
+@allure.epic('Unit Service v3 Integration Tests')
 class TestInfo(unittest.TestCase):
     """Test the info end-points"""
     @classmethod
@@ -90,6 +93,8 @@ class TestInfo(unittest.TestCase):
         """Common set up for environment"""
         cls.api_instance = InfoapiApi(cls.env.client())
 
+    @allure.title("Test service info endpoint")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_info_using_get(self):
         """test info_using_get"""
         try:
@@ -100,6 +105,8 @@ class TestInfo(unittest.TestCase):
         except ApiException as e:
             self.fail(str(e))
 
+@allure.feature('Unit Conversions')
+@allure.epic('Unit Service v3 Integration Tests')
 class TestConversions(unittest.TestCase):
     """Test the conversion end-points"""
     @classmethod
