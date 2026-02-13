@@ -18,28 +18,30 @@
 
 #!/usr/bin/env bash
 
-python3 -m pip install --upgrade pip
+# Setup Python virtual environment
+python3 -m venv venv
+source venv/bin/activate
 
-python3 -m venv env
-source env/bin/activate
-
-python3 -m pip install -r v3/requirements.txt
+# Install Python dependencies
+pip install -q --upgrade pip
+pip install -q -r requirements.txt
+pip install -q -r v3/requirements.txt
 
 echo ""
-export API_VER="v3"
-echo ***RUNNING UNIT API $API_VER TESTS***
-python3 run_test.py
+echo "***RUNNING UNIT API v3 TESTS WITH ALLURE REPORTING***"
+echo ""
+
+# Run tests with pytest and Allure reporting
+pytest test_api_v3.py test_unit_service_v3.py \
+    --alluredir=cimpl/allure-results \
+    --clean-alluredir \
+    -v
+
 TEST_STATUS=$?
-echo ***FINISHED UNIT API $API_VER TESTS***
 
-echo "TEST STATUS: $TEST_STATUS"
-
-#python3 -m pip uninstall -r requirements.txt -y
+echo ""
+echo "***FINISHED UNIT API v3 TESTS***"
+echo ""
 deactivate
-rm -rf env/
 
-
-if [ $TEST_STATUS -ne 0 ]
-then
-    exit 1
-fi
+exit $TEST_STATUS
