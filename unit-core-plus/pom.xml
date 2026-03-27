@@ -23,8 +23,9 @@
 		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
-		<jackson-databind.version>2.14.0</jackson-databind.version>
+		<jackson-databind.version>2.21.1</jackson-databind.version>
 		<spring-security-core.version>6.0.7</spring-security-core.version>
+		<org-eclipse-jetty.version>12.1.6</org-eclipse-jetty.version>
 	</properties>
 
 	<dependencies>
@@ -84,11 +85,17 @@
 			<dependency>
 				<groupId>io.netty</groupId>
 				<artifactId>netty-bom</artifactId>
-				<version>4.1.118.Final</version>
+				<version>4.1.130.Final</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-bom</artifactId>
+				<version>${org-eclipse-jetty.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
