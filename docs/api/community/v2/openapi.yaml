@@ -1,0 +1,1844 @@
+swagger: '2.0'
+info:
+  version: 2.0.0
+  title: Unit Service API
+  description: Unit and Measurement Service
+host: ROOT_URL
+x-google-allow: all
+basePath: BASE_URL
+tags:
+  - name: Info Api
+  - name: UoM Catalog
+  - name: Measurements
+  - name: Units
+  - name: Unit Systems
+  - name: Conversions
+security:
+  - Bearer: []
+  - google_id_token: []
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /catalog:
+    get:
+      tags:
+        - UoM Catalog
+      summary: Get the entire Catalog
+      description: Get the Units of Measure Catalog summary. The response contains
+        empty lists and corresponding list counts. Use the specific endpoints to obtain
+        the list contents as required.
+      operationId: Get Catalog summary
+      parameters:
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/Catalog'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /catalog/mapstates:
+    get:
+      tags:
+        - UoM Catalog
+      summary: Get the map and/or deprecation states
+      description: Get the defined states for deprecation and cross-namespace mappings
+        as defined in this catalog.
+      operationId: Get map states
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit for the number of items in the response. Default
+            100; -1 for all items.
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format - offset/limit out range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /catalog/lastmodified:
+    get:
+      tags:
+        - UoM Catalog
+      summary: Gets the Catalog's last modified date
+      description: Gets the last modification date of the catalog.
+      operationId: Get last modified date
+      parameters:
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/CatalogLastModified'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /catalog/search:
+    post:
+      tags:
+        - UoM Catalog
+      summary: Search Catalog by keyword(s)
+      description: 'Search units, measurements, etc. by keywords. Valid keywords are:
+        ''name'', ''namespace'', ''source'', ''symbol'', ''type'' (unit parameterization
+        type Abcd or ScaleOffset), ''ancestry'', ''code'', ''dimensionCode'', ''unitQuantityCode'',
+        ''dimensionAnalysis'', ''state'', ''baseMeasurement''.'
+      operationId: Search entire catalog
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/SearchRequest'
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit of the response. Default 100; -1 for all items.
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format - query or offset/limit out of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /conversion/abcd:
+    post:
+      tags:
+        - Conversions
+      summary: Get Abcd Unit conversion parameters given two Units
+      description: Get the Energistics style unit parameters given the 'fromUnit'
+        and 'toUnit'. The 'fromUnit' and 'toUnit' definitions can either be passed
+        as persistable reference strings (JSON serialized Unit essence) or as Unit
+        essence structures.
+      operationId: Get conversion as Abcd
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/ConversionAbcdRequest'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/ConversionResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /conversion/abcd/{namespaces}/{fromSymbol}/{toSymbol}:
+    get:
+      tags:
+        - Conversions
+      summary: Get Abcd Unit conversion parameters given two Unit specifications
+      description: 'Get the Energistics style unit parameters given the ''from'' and
+        ''to'' unit symbols and the namespace(-list) to disambiguate the unit symbols.
+        Example for a prioritized namespaces list: ''LIS,RP66,ECL,Energistics_UoM''
+        - this will prioritize the units in the LIS namespace over other namespaces.'
+      operationId: Get conversion as Abcd by namespace and symbols
+      parameters:
+        - name: namespaces
+          in: path
+          required: true
+          type: string
+          description: 'List of namespace codes to disambiguate the unit symbols.
+            Example: ''LIS,RP66,ECL,Energistics_UoM'' to prioritize old LIS unit symbols.'
+        - name: fromSymbol
+          in: path
+          required: true
+          type: string
+          description: 'The source (=from) unit symbol, example: ''ftUS''.'
+        - name: toSymbol
+          in: path
+          required: true
+          type: string
+          description: 'The target (=to) unit symbol, example: ''m''.'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/ConversionResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /conversion/scale:
+    post:
+      tags:
+        - Conversions
+      summary: Get ScaleOffset Unit conversion parameters given two Units
+      description: Get the scale/offset unit parameters given the 'fromUnit' and 'toUnit'.
+        The 'fromUnit' and 'toUnit' definitions can either be passed as persistable
+        reference strings (JSON serialized Unit essence) or as Unit essence structures.
+      operationId: Get conversion as ScaleOffset
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/ConversionScaleOffsetRequest'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/ConversionResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /conversion/scale/{namespaces}/{fromSymbol}/{toSymbol}:
+    get:
+      tags:
+        - Conversions
+      summary: Get ScaleOffset Unit conversion parameters given two unit specifications
+      description: 'Get the scale/offset unit parameters given the ''from'' and ''to''
+        unit symbols and the namespace(-list) to disambiguate the unit symbols. Example
+        for a prioritized namespaces list: ''LIS,RP66,ECL,Energistics_UoM'' - this
+        will prioritize the units in the LIS namespace over other namespaces.'
+      operationId: Get conversion as ScaleOffset by namespace and symbols
+      parameters:
+        - name: namespaces
+          in: path
+          required: true
+          type: string
+          description: 'List of namespace codes to disambiguate the unit symbols.
+            Example: ''LIS,RP66,ECL,Energistics_UoM'' to prioritize old LIS unit symbols.'
+        - name: fromSymbol
+          in: path
+          required: true
+          type: string
+          description: 'The source (=from) unit symbol, example: ''ftUS''.'
+        - name: toSymbol
+          in: path
+          required: true
+          type: string
+          description: 'The target (=to) unit symbol, example: ''m''.'
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/ConversionResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /measurement:
+    get:
+      tags:
+        - Measurements
+      summary: Get all Measurements
+      description: Get all measurements defined in this catalog.
+      operationId: Get Measurements
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit for the number of items in the response. Default
+            100; -1 for all items.
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format - offset/limit out of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+    post:
+      tags:
+        - Measurements
+      summary: Get a specific Measurement
+      description: Get a specific measurement given a persistable reference string
+        or measurement essence structure.
+      operationId: Get Measurement
+      parameters:
+        - in: body
+          name: body
+          description: The request to get a specific measurement given a persistable
+            reference string or measurement essence structure.
+          required: false
+          schema:
+            $ref: '#/definitions/MeasurementRequest'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/Measurement'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /measurement/maps:
+    get:
+      tags:
+        - Measurements
+      summary: Get the Measurement maps between namespaces
+      description: Get the measurement maps between two namespaces as defined in this
+        catalog.
+      operationId: Get Measurement map items
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit for the number of items in the response. Default
+            100; -1 for all items.
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format - offset/limit out of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /measurement/{ancestry}:
+    get:
+      tags:
+        - Measurements
+      summary: Get a specific Measurement by ancestry
+      description: Get a specific measurement given dot separated measurement ancestry
+      operationId: Get Measurement by ancestry
+      parameters:
+        - name: ancestry
+          in: path
+          required: true
+          type: string
+          description: 'The measurement''s ancestry, example: ''Time_Per_Length.Acoustic_Slowness'''
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/Measurement'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /measurement/search:
+    post:
+      tags:
+        - Measurements
+      summary: Search Measurements by keyword(s)
+      description: 'Search measurements by keywords. Valid keywords are: ''name'',
+        ''namespace'', ''source'', ''ancestry'', ''code'', ''dimensionCode'', ''unitQuantityCode'',
+        ''dimensionAnalysis'', ''state'', ''baseMeasurement''.'
+      operationId: Search Measurements
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/SearchMeasurementRequest'
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit for the number of items in the response. Default
+            100; -1 for all items.
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format - invalid query string or offset/limit out
+            of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit:
+    get:
+      tags:
+        - Units
+      summary: Get all Units
+      description: Get all units defined in this catalog.
+      operationId: Get Units
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 0
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit for the number of items in the response. Default
+            100; -1 for all items.
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format - offset/limit our of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+    post:
+      tags:
+        - Units
+      summary: Get a specific Unit
+      description: Get a specific unit instance given either a persistable reference
+        string or unit essence JSON structure.
+      operationId: Get Unit
+      parameters:
+        - in: body
+          name: body
+          required: false
+          description: The unit's essence either as persistable reference string or
+            unit essence JSON structure
+          schema:
+            $ref: '#/definitions/UnitRequest'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/Unit'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/maps:
+    get:
+      tags:
+        - Units
+      summary: Get Unit maps between namespaces
+      description: Get the UnitMapItems defined between namespaces in this catalog.
+      operationId: Get Unit map items
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 0
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit for the number of items in the response. Default
+            100; -1 for all items.
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format - offset/limit out of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/measurement/preferred:
+    post:
+      tags:
+        - Units
+      summary: Get preferred Units for a Measurement
+      description: Get the preferred units given a measurement persistable reference
+        string or measurement essence JSON structure.
+      operationId: Get preferred Units by Measurement
+      parameters:
+        - in: body
+          name: body
+          required: false
+          description: The request to get a specific measurement given a persistable
+            reference string or measurement essence structure.
+          schema:
+            $ref: '#/definitions/MeasurementRequest'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/measurement/preferred/{ancestry}:
+    get:
+      tags:
+        - Units
+      summary: Get preferred Units for a Measurement by ancestry
+      description: Get the preferred units given dot separated ancestry, e.g. Time_Per_Length.Acoustic_Slowness.
+      operationId: Get preferred Units by Measurement ancestry
+      parameters:
+        - name: ancestry
+          in: path
+          required: true
+          type: string
+          description: 'The measurement''s ancestry, example: ''Time_Per_Length.Acoustic_Slowness'''
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/measurement/{ancestry}:
+    get:
+      tags:
+        - Units
+      summary: Get all Units for a Measurement by ancestry
+      description: Get all units given dot separated ancestry, e.g. Time_Per_Length.Acoustic_Slowness.
+      operationId: Get Units by Measurement ancestry
+      parameters:
+        - name: ancestry
+          in: path
+          required: true
+          type: string
+          description: 'The measurement''s ancestry, example: ''Time_Per_Length.Acoustic_Slowness'''
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/measurement:
+    post:
+      tags:
+        - Units
+      summary: Get all Units for a Measurement
+      description: Get all units given either a measurement's persistable reference
+        string or a measurement essence JSON structure.
+      operationId: Get Units for Measurement
+      parameters:
+        - in: body
+          name: body
+          required: false
+          description: The request to get a specific measurement given a persistable
+            reference string or measurement essence structure.
+          schema:
+            $ref: '#/definitions/MeasurementRequest'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/symbol/{namespaces}/{symbol}:
+    get:
+      tags:
+        - Units
+      summary: Get a unique Unit by Namespace,Symbol
+      description: 'Get single, unique unit given a namespace or namespace list and
+        a symbol. Example: namespace=''LIS,RP66,ECL'', symbol=''F'' returns the LIS
+        Foot.'
+      operationId: Get Unit by namespace and symbol
+      parameters:
+        - name: namespaces
+          in: path
+          required: true
+          type: string
+          description: 'The namespace or namespace list setting the priority of sources
+            to resolve a symbol ambiguity. Example: ''Energistics_UoM'' or ''LIS,RP66,ECL''. '
+        - name: symbol
+          in: path
+          required: true
+          type: string
+          description: 'The unit symbol to look up. Example: ''F''. ''F'' is ambiguous
+            and requires a namespace to disambiguate.'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/Unit'
+        '400':
+          description: Bad input format - offset/limit out of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/symbol/{symbol}:
+    get:
+      tags:
+        - Units
+      summary: Get Units by symbol
+      description: 'Get all units given a specific symbol. Example: ''F'': ''F'' is
+        defined in multiple namespaces belonging to different measurements.'
+      operationId: Get Units by symbol
+      parameters:
+        - name: symbol
+          in: path
+          required: true
+          type: string
+          description: 'The unit symbol to look up. Example: ''F''. ''F'' is defined
+            in multiple namespaces.'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/unitsystem/{unitSystemName}:
+    post:
+      tags:
+        - Unit Systems
+      summary: Get a unique Unit for the given Measurement in the named UnitSystem
+      description: 'Get a unique unit given a unit system name and a measurement persistable
+        reference string or measurement essence Json structure. Example: Unit system:
+        English; measurement essence: { "ancestry": "Length", "type": "UM" }'
+      operationId: Get Unit by UnitSystem and Measurement
+      parameters:
+        - name: unitSystemName
+          in: path
+          required: true
+          type: string
+          description: 'The name of the unit system. Example: ''English''.'
+        - in: body
+          name: body
+          required: false
+          description: The request to get a specific measurement given a persistable
+            reference string or measurement essence structure.
+          schema:
+            $ref: '#/definitions/MeasurementRequest'
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/Unit'
+        '400':
+          description: Bad input format - invalid unit system name or offset/limit
+            out of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/unitsystem/{unitSystemName}/{ancestry}:
+    get:
+      tags:
+        - Unit Systems
+      summary: Get a unique Unit for the given Measurement ancestry in the named UnitSystem
+      description: Get a unique unit given a unit system name and dot separated measurement
+        ancestry, e.g. Time_Per_Length.Acoustic_Slowness.
+      operationId: Get Unit by UnitSystem and Measurement ancestry
+      parameters:
+        - name: unitSystemName
+          in: path
+          required: true
+          type: string
+          description: 'The name of the unit system. Example: ''English''.'
+        - in: path
+          name: ancestry
+          required: true
+          description: 'The measurement''s ancestry, example: ''Time_Per_Length.Acoustic_Slowness''.'
+          type: string
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/Unit'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unit/search:
+    post:
+      tags:
+        - Units
+      summary: Search Units by keyword(s)
+      description: 'Search units by keywords. Valid keywords are: ''name'', ''namespace'',
+        ''source'', ''symbol'', ''type'' (unit parameterization type Abcd or ScaleOffset),
+        ''state''.'
+      operationId: Search Units
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/SearchUnitRequest'
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit for the number of items in the response. Default
+            100; -1 for all items.
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response - invalid query or offset/limit out of
+            range.
+          schema:
+            $ref: '#/definitions/QueryResult'
+        '400':
+          description: Bad input format
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unitsystem/list:
+    get:
+      tags:
+        - Unit Systems
+      summary: Get all UnitSystem info
+      description: Get all known unit systems as info (name, description, ancestry,
+        persistableReference) as declared in this catalog.
+      operationId: Get UnitSystem list
+      parameters:
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit of the response. Default 100; -1 for all items.
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response containing the list of UnitSystemInfo
+            structures.
+          schema:
+            $ref: '#/definitions/UnitSystemInfoList'
+        '400':
+          description: Bad input format - offset/limit out of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unitsystem:
+    post:
+      tags:
+        - Unit Systems
+      summary: Get all Units assigned to the UnitSystem
+      description: Get all unit assignments for the given unit system essence.
+      operationId: Get UnitSystem by essence
+      parameters:
+        - in: body
+          name: body
+          required: false
+          description: 'The essence of the unit system. Example: {"ancestry":"English"}'
+          schema:
+            $ref: '#/definitions/UnitSystemRequest'
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 0
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit for the number of items in the response. Default
+            100; -1 for all items.
+        - in: header
+          name: data-partition-id
+          type: string
+          required: false
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/UnitSystem'
+        '400':
+          description: Bad input format - invalid unit system definition or offset/limit
+            out of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+  /unitsystem/{name}:
+    get:
+      tags:
+        - Unit Systems
+      summary: Get all Units assigned to the UnitSystem name
+      description: Get all unit assignments for the given unit system.
+      operationId: Get UnitSystem by name
+      parameters:
+        - in: path
+          name: name
+          required: true
+          description: 'The name of the unit system. Example: ''English''.'
+          type: string
+        - name: offset
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 0
+          description: The offset into the result array. Default 0.
+        - name: limit
+          in: query
+          required: false
+          type: integer
+          format: int32
+          default: 100
+          description: The size limit for the number of items in the response. Default
+            100; -1 for all items.
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            $ref: '#/definitions/UnitSystem'
+        '400':
+          description: Bad input format - invalid unit system name or offset/limit
+            out of range.
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+      security:
+        - Bearer: []
+        - google_id_token: []
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+  google_id_token:
+    authorizationUrl: ''
+    flow: implicit
+    type: oauth2
+    x-google-issuer: https://accounts.google.com
+    x-google-jwks_uri: https://www.googleapis.com/oauth2/v3/certs
+    scopes: {}
+definitions:
+  UnitDeprecationInfo:
+    description: The deprecation information record for a unit.
+    properties:
+      remarks:
+        type: string
+        description: Optional additional remarks about this deprecation.
+      state:
+        type: string
+        description: 'The deprecation state - one of the following: ''identical'',
+          ''corrected'', ''precision'', ''conversion'', ''conditional'', ''unsupported'',
+          ''different'', ''unresolved''.'
+        example: identical
+      supersededByUnit:
+        type: string
+        description: If defined, the essence Json string identifying the unit superseding
+          the deprecated unit.
+        example: '{"scaleOffset":{"scale":0.3048,"offset":0.0},"symbol":"ft","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+  Measurement:
+    description: The full definition of a measurement (base measurement/dimension
+      or child measurement).
+    properties:
+      baseMeasurement:
+        type: boolean
+        description: True if the measurement is a root or base measurement, also known
+          as dimension. False for any child measurement.
+        example: 'false'
+      childMeasurementEssenceJsons:
+        type: array
+        description: The essence Json strings of any child measurement of the current
+          measurement.
+        example:
+          - '{"ancestry":"Time_Per_Length.Acoustic_Slowness.Compressional_Slowness","type":"UM"}'
+          - '{"ancestry":"Time_Per_Length.Acoustic_Slowness.Rayleigh_Slowness","type":"UM"}'
+          - '{"ancestry":"Time_Per_Length.Acoustic_Slowness.Stoneley_Slowness","type":"UM"}'
+          - '{"ancestry":"Time_Per_Length.Acoustic_Slowness.Low_Acoustic_Slowness","type":"UM"}'
+        items:
+          type: string
+      code:
+        type: string
+        description: The measurement code.
+        example: Acoustic_Slowness
+      deprecationInfo:
+        $ref: '#/definitions/MeasurementDeprecationInfo'
+        description: Optional deprecation information, if the current measurement
+          is declared as deprecated.
+      description:
+        type: string
+        description: A description string further describing the meaning and purpose
+          of the current measurement.
+        example: 'The transit time interval per unit length of an acoustic wave; inverse
+          of wave velocity. Applies to all types of Delta-T: Compressional, Shear
+          and Stoneley.'
+      dimensionAnalysis:
+        type: string
+        description: The dimensionality of the measurement in terms of Energistics
+          dimension codes ()
+        example: T/L
+      dimensionCode:
+        type: string
+        description: The OSDD dimension code in case of 'SLB' or the dimension for
+          namespace 'Energistics_UoM'.
+        example: AcousticSlowness
+      essence:
+        $ref: '#/definitions/MeasurementEssence'
+        description: The essential parameterization of the measurement.
+      lastModified:
+        type: string
+        description: The date this measurement was last updated in the format YYYYMMDD.
+        example: '19940930'
+      name:
+        type: string
+        description: The name of the current measurement.
+        example: Acoustic Slowness
+      namespace:
+        type: string
+        description: The namespace in which the current code is unique; typical values
+          are 'SLB', 'Energistics_UoM'
+        example: SLB
+      parentEssenceJson:
+        type: string
+        description: Only populated for child measurements - the parent measurement
+          as essence Json string.
+        example: '{"ancestry":"Time_Per_Length","type":"UM"}'
+      baseMeasurementEssenceJson:
+        type: string
+        description: The base measurement as essence Json string; base measurements
+          return themselves as persistable reference string.
+        example: '{"ancestry":"Time_Per_Length","type":"UM"}'
+      preferredUnitEssenceJsons:
+        type: array
+        description: If populated, the list of preferred units associated with the
+          current measurement.
+        example:
+          - '{"scaleOffset":{"scale":1.0,"offset":0.0},"symbol":"s/m","baseMeasurement":{"ancestry":"Time_Per_Length","type":"UM"},"type":"USO"}'
+          - '{"scaleOffset":{"scale":1.0E-6,"offset":0.0},"symbol":"us/m","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+          - '{"scaleOffset":{"scale":3.280839895013123,"offset":0.0},"symbol":"s/ft","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+          - '{"scaleOffset":{"scale":3.280839895013123E-6,"offset":0.0},"symbol":"us/ft","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+        items:
+          type: string
+      unitQuantityCode:
+        type: string
+        description: The OSDD UnitQuantity code associated with this measurement -
+          only meaningful for namespace 'SLB'.
+      unitEssenceJsons:
+        type: array
+        description: 'Only populated for base measurements/dimensions: the units associated
+          with this base measurement/dimension.'
+        example:
+          - '{"scaleOffset":{"scale":11.81102362204724,"offset":0.0},"symbol":"H/KF","baseMeasurement":{"ancestry":"Time_Per_Length","type":"UM"},"type":"USO"}'
+          - '{"scaleOffset":{"scale":3.6,"offset":0.0},"symbol":"H/KM","baseMeasurement":{"ancestry":"Time_Per_Length","type":"UM"},"type":"USO"}'
+          - '{"scaleOffset":{"scale":3.280839895013123E-6,"offset":0.0},"symbol":"US/F","baseMeasurement":{"ancestry":"Time_Per_Length","type":"UM"},"type":"USO"}'
+          - '{"scaleOffset":{"scale":1.0E-6,"offset":0.0},"symbol":"US/M","baseMeasurement":{"ancestry":"Time_Per_Length","type":"UM"},"type":"USO"}'
+        items:
+          type: string
+  MeasurementEssence:
+    description: The essence of a measurement definition.
+    properties:
+      ancestry:
+        type: string
+        description: The measurement ancestry, i.e. the parent codes separated by
+          a period symbol.
+        example: Time_Per_Length.Acoustic_Slowness
+      type:
+        type: string
+        description: The type string for this measurement.
+        example: UM
+        default: UM
+  UnitMapItem:
+    description: The definition of a uni-directional unit-to-unit map pair.
+    properties:
+      fromUnit:
+        $ref: '#/definitions/Unit'
+        description: The 'from' unit of a unit-to-unit mapping.
+      note:
+        type: string
+        description: Any additional remarks and notes about this mapping.
+      state:
+        type: string
+        description: 'The state of the mapping; one of the following: ''identical'',
+          ''corrected'', ''precision'', ''conversion'', ''conditional'', ''unsupported'',
+          ''different'', ''unresolved''.'
+      toUnit:
+        $ref: '#/definitions/Unit'
+        description: The 'to' unit of a unit-to-unit mapping.
+  CatalogLastModified:
+    description: The response to obtain the last modification date of the current
+      catalog.
+    properties:
+      lastModified:
+        type: string
+        format: date-time
+        description: The unit of measure catalog's last modification date.
+        example: '2016-07-18T12:52:24.396Z'
+  MapState:
+    description: The status definition of a unit-to-unit or measurement-to-measurement
+      map.
+    properties:
+      description:
+        type: string
+        description: Further explanation about this MapState.
+        example: Indicates that the mapsTo conversion factor represents a correction
+          to the mapsFrom conversion factor. That is, the mapsFrom conversion factor
+          has a problem. The value should be treated the same as for a state of precision.
+          For deprecation state this indicates that the superseded item has corrected
+          behavior.
+      source:
+        type: string
+        description: The source of this MapState, e.g. Energistics or SLB.
+        example: http://w3.energistics.org/uom/Energistics_Unit_of_Measure_Usage_Guide_V1.pdf
+      state:
+        type: string
+        description: 'The unique MapState code; one of the following: ''identical'',
+          ''corrected'', ''precision'', ''conversion'', ''conditional'', ''unsupported'',
+          ''different'', ''unresolved''.'
+        example: corrected
+  UnitSystem:
+    description: A unit system definition with containing unit-to-measurement assignments.
+    properties:
+      ancestry:
+        type: string
+        description: The full ancestry of this unit system.
+        example: Metric.English
+      description:
+        type: string
+        description: Any further description of this unit system.
+        example: Conventional oilfield units in areas where English units are used
+      lastModified:
+        type: string
+        description: The last modification of this unit system core properties formatted
+          as YYYYMMDD.
+        example: '19920228'
+      name:
+        type: string
+        description: The name of this unit system.
+        example: English
+      referenceUnitSystem:
+        type: string
+        description: The unit system code, from which this unit system is derived
+          - or a blank string.
+        example: Metric
+      source:
+        type: string
+        description: Source of the unit system definition.
+      offset:
+        type: integer
+        format: int32
+        description: The offset into the unit assignment list as defined in the request.
+      unitAssignmentCountTotal:
+        type: integer
+        format: int32
+        description: The total number of unit assignments provided by this unit system.
+        example: 277
+      unitAssignmentCountInResponse:
+        type: integer
+        format: int32
+        description: The actual number of unit assignments delivered in this response.
+      unitAssignments:
+        type: array
+        description: The unit assignments provided by this unit system.
+        items:
+          $ref: '#/definitions/UnitAssignment'
+  UnitSystemEssence:
+    description: A unit system essence
+    properties:
+      ancestry:
+        type: string
+        description: The full ancestry of this unit system.
+        example: Metric.English
+  Unit:
+    description: The full description of a unit.
+    properties:
+      deprecationInfo:
+        $ref: '#/definitions/UnitDeprecationInfo'
+        description: If present, the unit is deprecated. The deprecation information
+          contains hints whether there is a unit superseding this unit.
+      description:
+        type: string
+        description: Any additional remarks about this unit or blank.
+      displaySymbol:
+        type: string
+        description: The unit symbol or unit abbreviation.
+        example: us/ft
+      essence:
+        $ref: '#/definitions/UnitEssence'
+        description: the essential definition of this unit.
+      lastModified:
+        type: string
+        description: The last modification date of this unit in the format YYYYMMDD.
+        example: '19920228'
+      name:
+        type: string
+        description: The full name of this unit
+        example: microsecond per foot
+      namespace:
+        type: string
+        description: 'The namespace, in which this unit''s symbol is unique. Example
+          namespaces: ''Energistics_UoM'', ''RP66'', ''ECL'', ''LIS''.'
+        example: RP66
+      source:
+        type: string
+        description: The source of this unit definition.
+        example: APIRP661
+  UnitEssence:
+    description: The essence of a unit parameterization
+    properties:
+      abcd:
+        $ref: '#/definitions/Abcd'
+        description: The Energistics y = (A+B*x)/(C+D*x) parameterization - if not
+          present, scaleOffset is populated.
+      scaleOffset:
+        $ref: '#/definitions/ScaleOffset'
+        description: The y = scale*(x-offset) parameterization - if not present, Abcd
+          is populated.
+      symbol:
+        type: string
+        description: The unit symbol or short name.
+        example: degF
+      baseMeasurement:
+        description: The essence to the base measurement (identifying, which units
+          are convertible).
+        $ref: '#/definitions/MeasurementEssence'
+        example:
+          ancestry: Length
+          type: UM
+      type:
+        type: string
+        description: The type string for this unit essence, either 'USO' for ScaleOffset
+          or 'UAD' for Abcd.
+        example: USO
+        default: USO
+  MeasurementDeprecationInfo:
+    description: A deprecation information record for a measurement.
+    properties:
+      remarks:
+        type: string
+        description: Optional additional remarks about this deprecation.
+        example: Replicated OSDD Unit_Dimension
+      state:
+        type: string
+        description: 'The deprecation state - one of the following: ''identical'',
+          ''corrected'', ''precision'', ''conversion'', ''conditional'', ''unsupported'',
+          ''different'', ''unresolved''.'
+        example: identical
+      supersededByUnitMeasurement:
+        type: string
+        description: If defined, the essence Json string identifying the unit superseding
+          the deprecated unit.
+        example: '{"ancestry":"Time_Per_Length","type":"UM"}'
+  Catalog:
+    description: The unit of measure catalog.
+    properties:
+      lastModified:
+        type: string
+        format: date-time
+        description: The unit of measure catalog's last modification date.
+        example: '2016-07-18T12:52:24.396Z'
+      totalMapStateCount:
+        type: integer
+        format: int32
+        description: The number of MapState items known to this catalog.
+      mapStates:
+        type: array
+        description: The MapState items defined in this catalog.
+        items:
+          $ref: '#/definitions/MapState'
+      totalMeasurementMapCount:
+        type: integer
+        format: int32
+        description: The number of measurement maps, i.e. one-directional links/correspondences
+          of measurement pairs defined in this catalog.
+      measurementMaps:
+        type: array
+        description: The array of measurement maps, i.e. one-directional links/correspondences
+          of measurement pairs defined in this catalog.
+        items:
+          $ref: '#/definitions/MeasurementMap'
+      totalMeasurementCount:
+        type: integer
+        format: int32
+        description: The number of measurements - base measurements/dimensions and
+          child measurements, defined in this catalog.
+      measurements:
+        type: array
+        description: The array of measurements, i.e. base measurements/dimensions
+          and child measurements defined in this catalog.
+        items:
+          $ref: '#/definitions/Measurement'
+      totalUnitMapCount:
+        type: integer
+        format: int32
+        description: The number of unit maps, i.e. one-directional links/correspondences
+          of unit pairs defined in this catalog.
+      unitMaps:
+        type: array
+        description: The unit maps, i.e. one-directional links/correspondences of
+          unit pairs defined in this catalog.
+        items:
+          $ref: '#/definitions/UnitMap'
+      totalUnitSystemCount:
+        type: integer
+        format: int32
+        description: The number of unit systems defined in this catalog.
+      unitSystemInfos:
+        type: array
+        description: The array of unit systems defined in this catalog.
+        items:
+          $ref: '#/definitions/UnitSystemInfoList'
+      totalUnitCount:
+        type: integer
+        format: int32
+        description: The number of units defined in this catalog.
+      units:
+        type: array
+        description: The array of units defined in this catalog.
+        items:
+          $ref: '#/definitions/Unit'
+  ConversionScaleOffsetRequest:
+    type: object
+    description: A scale offset unit conversion request. The requested units are either
+      passed as persistable reference strings (JSON serialized Unit 'essence') or
+      as Unit essence structure.
+    properties:
+      fromUnitPersistableReference:
+        type: string
+        description: The persistable reference string (JSON serialized Unit 'essence')
+          representing toe 'from Unit'. Either 'fromUnitPersistableReference' or 'fromUnit'
+          must be populated.
+        example: '{"scaleOffset":{"scale":0.3048,"offset":0.0},"symbol":"ft","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+      toUnitPersistableReference:
+        type: string
+        description: The persistable reference string (JSON serialized Unit 'essence')
+          representing toe 'to Unit'. Either 'toUnitPersistableReference' or 'toUnit'
+          must be populated.
+        example: '{"scaleOffset":{"scale":1.0,"offset":0.0},"symbol":"m","baseMeasurement":{"ancestry":"L","type":"UM"},"type":"USO"}'
+      fromUnit:
+        description: The source or 'from' unit essence
+        $ref: '#/definitions/UnitEssence'
+        example:
+          abcd: null
+          scaleOffset:
+            scale: 0.3048
+            offset: 0
+          symbol: ft
+          baseMeasurement:
+            ancestry: Length
+            type: UM
+          type: USO
+      toUnit:
+        description: The target or 'to' unit essence
+        $ref: '#/definitions/UnitEssence'
+        example:
+          abcd: null
+          scaleOffset:
+            scale: 1
+            offset: 0
+          symbol: m
+          baseMeasurement:
+            ancestry: Length
+            type: UM
+          type: USO
+    example:
+      fromUnitPersistableReference: '{"scaleOffset":{"scale":0.3048,"offset":0.0},"symbol":"ft","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+      toUnitPersistableReference: '{"scaleOffset":{"scale":1.0,"offset":0.0},"symbol":"m","baseMeasurement":{"ancestry":"L","type":"UM"},"type":"USO"}'
+      fromUnit:
+        scaleOffset:
+          scale: 0.3048
+          offset: 0
+        symbol: ft
+        baseMeasurement:
+          ancestry: Length
+          type: UM
+        type: USO
+      toUnit:
+        scaleOffset:
+          scale: 1
+          offset: 0
+        symbol: m
+        baseMeasurement:
+          ancestry: L
+          type: UM
+        type: USO
+  ConversionAbcdRequest:
+    type: object
+    description: an Energistics Abcd style unit conversion request. The requested
+      units are either passed as persistable reference strings (JSON serialized Unit
+      'essence') or as Unit essence structure
+    properties:
+      fromUnitPersistableReference:
+        type: string
+        description: The persistable reference string (JSON serialized Unit 'essence')
+          representing toe 'from Unit'. Either 'fromUnitPersistableReference' or 'fromUnit'
+          must be populated.
+        example: '{"scaleOffset":{"scale":0.3048,"offset":0.0},"symbol":"ft","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+      toUnitPersistableReference:
+        type: string
+        description: The persistable reference string (JSON serialized Unit 'essence')
+          representing toe 'to Unit'. Either 'toUnitPersistableReference' or 'toUnit'
+          must be populated.
+        example: '{"scaleOffset":{"scale":1.0,"offset":0.0},"symbol":"m","baseMeasurement":{"ancestry":"L","type":"UM"},"type":"USO"}'
+      fromUnit:
+        description: The source or 'from' unit essence.
+        $ref: '#/definitions/UnitEssence'
+        example:
+          scaleOffset:
+            scale: 0.3048
+            offset: 0
+          symbol: ft
+          baseMeasurement:
+            ancestry: Length
+            type: UM
+          type: USO
+      toUnit:
+        description: The target or 'to' unit essence.
+        $ref: '#/definitions/UnitEssence'
+        example:
+          scaleOffset:
+            scale: 1
+            offset: 0
+          symbol: m
+          baseMeasurement:
+            ancestry: Length
+            type: UM
+          type: USO
+    example:
+      fromUnitPersistableReference: '{"scaleOffset":{"scale":0.3048,"offset":0.0},"symbol":"ft","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+      toUnitPersistableReference: '{"scaleOffset":{"scale":1.0,"offset":0.0},"symbol":"m","baseMeasurement":{"ancestry":"L","type":"UM"},"type":"USO"}'
+      fromUnit:
+        scaleOffset:
+          scale: 0.3048
+          offset: 0
+        symbol: ft
+        baseMeasurement:
+          ancestry: Length
+          type: UM
+        type: USO
+      toUnit:
+        scaleOffset:
+          scale: 1
+          offset: 0
+        symbol: m
+        baseMeasurement:
+          ancestry: L
+          type: UM
+        type: USO
+  MeasurementRequest:
+    type: object
+    description: Request to get a specific measurement given a persistable reference
+      string or measurement essence structure.
+    properties:
+      persistableReference:
+        type: string
+        description: The persistable reference string for the measurement; optional,
+          only one 'persistableReference' or 'essence' must be defined.
+        example: '{"ancestry":"Length","type":"UM"}'
+      essence:
+        description: The measurement essence.
+        $ref: '#/definitions/MeasurementEssence'
+        example:
+          ancestry: Length
+          type: UM
+    example:
+      persistableReference: '{"ancestry":"Length","type":"UM"}'
+      essence:
+        ancestry: Length
+        type: UM
+  SearchRequest:
+    type: object
+    description: Request to containing a Lucene style query string.
+    properties:
+      query:
+        type: string
+        description: The Lucene style query string with keywords.
+        example: namespace:Energistics_UoM
+    example:
+      query: namespace:Energistics_UoM
+  SearchUnitRequest:
+    type: object
+    description: Request to containing a Lucene style query string.
+    properties:
+      query:
+        type: string
+        description: The Lucene style query string with keywords.
+        example: namespace:LIS OR namespace:Energistics_UoM
+    example:
+      query: namespace:LIS OR namespace:Energistics_UoM
+  SearchMeasurementRequest:
+    type: object
+    description: Request to containing a Lucene style query string.
+    properties:
+      query:
+        type: string
+        description: The Lucene style query string with keywords.
+        example: dimensionAnalysis:L/T
+    example:
+      query: dimensionAnalysis:L/T
+  UnitRequest:
+    type: object
+    description: Request to get a single unit instance given an essence.
+    properties:
+      persistableReference:
+        type: string
+        description: The persistable reference string for the unit; optional, only
+          one 'persistableReference' or 'essence' must be defined.
+        example: '{"scaleOffset":{"scale":0.3048,"offset":0.0},"symbol":"ft","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+      essence:
+        description: Unit essence json structure
+        $ref: '#/definitions/UnitEssence'
+        example:
+          scaleOffset:
+            scale: 0.3048
+            offset: 0
+          symbol: ft
+          baseMeasurement:
+            ancestry: Length
+            type: UM
+          type: USO
+    example:
+      persistableReference: '{"scaleOffset":{"scale":0.3048,"offset":0.0},"symbol":"ft","baseMeasurement":{"ancestry":"Length","type":"UM"},"type":"USO"}'
+      essence:
+        scaleOffset:
+          scale: 0.3048
+          offset: 0
+        symbol: ft
+        baseMeasurement:
+          ancestry: Length
+          type: UM
+        type: USO
+  UnitSystemRequest:
+    type: object
+    description: Request to get all unit assignments for the given unit system essence.
+    properties:
+      essence:
+        description: Unit system essence
+        $ref: '#/definitions/UnitSystemEssence'
+        example:
+          ancestry: Metric
+    example:
+      essence:
+        ancestry: Metric
+  QueryResult:
+    description: A result of a query containing unit of measure items.
+    properties:
+      count:
+        type: integer
+        format: int32
+        description: Number of items actually returned in this response.
+      measurementMapItems:
+        type: array
+        description: The array of measurement-to-measurement maps.
+        items:
+          $ref: '#/definitions/MeasurementMapItem'
+      measurements:
+        type: array
+        description: The array of Measurement items.
+        items:
+          $ref: '#/definitions/Measurement'
+      offset:
+        type: integer
+        format: int32
+        description: The offset position for this query. Default is 0.
+        example: 0
+      totalCount:
+        type: integer
+        format: int32
+        description: Number of items contained in the catalog.
+      unitMapItems:
+        type: array
+        description: The array of UnitMapItems describing unit-to-unit pairs.
+        items:
+          $ref: '#/definitions/UnitMapItem'
+      units:
+        type: array
+        description: The array of Unit items.
+        items:
+          $ref: '#/definitions/Unit'
+  ConversionResult:
+    description: The response to a unit conversion request..
+    properties:
+      abcd:
+        $ref: '#/definitions/Abcd'
+        description: The Energistics y = (A+B*x)/(C+D*x) parameterization - if not
+          present, scaleOffset is populated.
+      fromUnit:
+        $ref: '#/definitions/Unit'
+        description: The source or 'from' unit definition.
+      scaleOffset:
+        $ref: '#/definitions/ScaleOffset'
+        description: The y = scale*(x-offset) parameterization - if not present, Abcd
+          is populated.
+      toUnit:
+        $ref: '#/definitions/Unit'
+        description: The target or 'to' unit definition.
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
+        description: Error message
+    description: Error response from a failed unit service operation
+  ScaleOffset:
+    description: Unit in y = scale*(x-offset) parameterization
+    properties:
+      offset:
+        type: number
+        format: double
+        description: The offset in y = scale*(x-offset)
+        example: -459.67
+      scale:
+        type: number
+        format: double
+        description: The scale in y = scale*(x-offset)
+        example: 0.5555555555555556
+  UnitSystemInfo:
+    description: A container for UnitSystem properties
+    properties:
+      name:
+        type: string
+        description: The unit system name
+      description:
+        type: string
+        description: The unit system description
+      ancestry:
+        type: string
+        description: The unit system ancestry, i.e. names separated by '.'
+      persistableReference:
+        type: string
+        description: The unit system's persistable reference string.
+  UnitSystemInfoList:
+    description: The array of unit system info structures.
+    properties:
+      count:
+        type: integer
+        format: int32
+        description: The number of elements in the list
+      totalCount:
+        type: integer
+        format: int32
+        description: The total number of elements in the list defined in the catalog
+      offset:
+        type: integer
+        format: int32
+        description: The offset into the list as requested.
+      unitSystemInfoList:
+        type: array
+        description: The array of unit system names.
+        items:
+          $ref: '#/definitions/UnitSystemInfo'
+  MeasurementMapItem:
+    description: The definition of a uni-directional measurement-to-measurement map
+      pair.
+    properties:
+      fromMeasurement:
+        $ref: '#/definitions/Measurement'
+        description: The 'from' measurement of a measurement-to-measurement mapping.
+      note:
+        type: string
+        description: Any additional remarks and notes about this mapping.
+      state:
+        type: string
+        description: 'The state of the mapping; one of the following: ''identical'',
+          ''corrected'', ''precision'', ''conversion'', ''conditional'', ''unsupported'',
+          ''different'', ''unresolved''.'
+      toMeasurement:
+        $ref: '#/definitions/Measurement'
+        description: The 'to' measurement of a measurement-to-measurement mapping.
+  MeasurementMap:
+    description: A list of MeasurementMapItems given a 'from' and a 'to' namespace.
+    properties:
+      fromNamespace:
+        type: string
+        description: The source or 'from' namespace
+      measurementMapItemCount:
+        type: integer
+        format: int32
+        description: The number of items in the measurementMapItems array.
+      measurementMapItems:
+        type: array
+        description: The array of MeasurementMapItem.
+        items:
+          $ref: '#/definitions/MeasurementMapItem'
+      toNamespace:
+        type: string
+        description: The source or 'from' namespace
+  UnitAssignment:
+    description: A unit to measurement assignment in the conetxt of a unit system.
+    properties:
+      lastModified:
+        type: string
+        description: The last modification date of the assignment in the format YYYYMMDD.
+      measurement:
+        $ref: '#/definitions/Measurement'
+        description: The measurement in the context of the unit system.
+      unit:
+        $ref: '#/definitions/Unit'
+        description: The unit assigned to the measurement in the context of the unit
+          system.
+  Abcd:
+    description: Energistics standard parameterization y = (A+B*x)/(C+D*x)
+    properties:
+      a:
+        type: number
+        format: double
+        description: Coefficient A in the Energistics unit parameterization y = (A+B*x)/(C+D*x)
+        example: 2298.35
+      b:
+        type: number
+        format: double
+        description: Coefficient B in the Energistics unit parameterization y = (A+B*x)/(C+D*x)
+        example: 5.0
+      c:
+        type: number
+        format: double
+        description: Coefficient C in the Energistics unit parameterization y = (A+B*x)/(C+D*x)
+        example: 9
+      d:
+        type: number
+        format: double
+        description: Coefficient D in the Energistics unit parameterization y = (A+B*x)/(C+D*x)
+        example: 0.0
+  UnitMap:
+    description: A list of UnitMapItems given a 'from' and a 'to' namespace.
+    properties:
+      fromNamespace:
+        type: string
+        description: The source or 'from' namespace.
+      toNamespace:
+        type: string
+        description: The source or 'to' namespace.
+      unitMapItemCount:
+        type: integer
+        format: int32
+        description: The number of items in the unitMapItems array.
+      unitMapItems:
+        type: array
+        description: The array of UnitMapItem.
+        items:
+          $ref: '#/definitions/UnitMapItem'
+  VersionInfo:
+    type: object
+    properties:
+      artifactId:
+        type: string
+      branch:
+        type: string
+      buildTime:
+        type: string
+      commitId:
+        type: string
+      commitMessage:
+        type: string
+      connectedOuterServices:
+        type: array
+        items:
+          $ref: '#/definitions/ConnectedOuterService'
+      groupId:
+        type: string
+      version:
+        type: string
