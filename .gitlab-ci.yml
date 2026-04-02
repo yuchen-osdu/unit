@@ -26,6 +26,7 @@ variables:
 
   ACCEPTANCE_TEST_DIR: $CI_PROJECT_DIR/unit-acceptance-test
   CIMPL_BAREMETAL_PYTHON_INT_TEST_SUBDIR: $CI_PROJECT_DIR/unit-acceptance-test
+  CIMPL_OPENAPI_CONFIG_ROUTE: /api/unit/api-docs/swagger-config
 
 .maven:
   image: maven:3.9.3-eclipse-temurin-17
