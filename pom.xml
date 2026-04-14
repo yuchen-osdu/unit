@@ -14,10 +14,9 @@
         <lucene.version>8.0.0</lucene.version>
         <log4j.version>2.17.1</log4j.version>
         <json-smart.version>2.5.2</json-smart.version>
-        <spring-boot.version>3.5.9</spring-boot.version>
-        <spring-security.version>6.5.7</spring-security.version>
-        <spring-framework.version>6.2.15</spring-framework.version>
-        <jackson.version>2.21.1</jackson.version>
+        <spring-boot.version>3.5.13</spring-boot.version>
+        <spring-security.version>6.5.9</spring-security.version>
+        <spring-framework.version>6.2.17</spring-framework.version>
     </properties>
 
     <licenses>
@@ -63,15 +62,6 @@
     </distributionManagement>
     <dependencyManagement>
         <dependencies>
-            <!-- Jackson override: Spring Boot 3.5.9 and other artifacts provides 2.19.4, we need 2.21.1 for GHSA-72hv-8253-57qq -->
-            <!-- Maybe remove this override when Spring Boot BOM updates to Jackson >= 2.21.1 -->
-            <dependency>
-                <groupId>com.fasterxml.jackson</groupId>
-                <artifactId>jackson-bom</artifactId>
-                <version>${jackson.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -96,16 +86,6 @@
                 <artifactId>snakeyaml</artifactId>
                 <version>${snakeyaml.version}</version>
             </dependency>
-
-            <!-- https://mvnrepository.com/artifact/io.netty/netty-bom -->
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-bom</artifactId>
-                <version>4.1.130.Final</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
