@@ -1,10 +1,5 @@
 variables:
   CORE_BUILD_SUBDIR: unit-core
-  IBM_BUILD_SUBDIR: provider/unit-ibm/unit-ocp
-  IBM_INT_TEST_PY_SUBDIR: testing/unit_test_ibm
-  IBM_INT_TEST_PY_FILE: run_test.py
-  IBM_HELM_CONFIG_PATH: devops/ibm/ibm-unit-config
-  IBM_HELM_DEPLOY_PATH: devops/ibm/ibm-unit-deploy
 
   AWS_BUILD_SUBDIR: provider/unit-aws/build-aws
   AWS_TEST_SUBDIR: testing/unit_test_aws
@@ -38,7 +33,6 @@ gemnasium-maven-dependency_scanning:
   variables:
     DS_JAVA_VERSION: 17
 
-
 include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "standard-setup.yml"
@@ -54,9 +48,6 @@ include:
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/gc-global.yml"
-
-  - project: "osdu/platform/ci-cd-pipelines"
-    file: "cloud-providers/ibm-python-test.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/aws-global.yml"
@@ -83,9 +74,6 @@ include:
     file: "cloud-providers/gc-one-pipeline.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
-    file: "cloud-providers/ibm-one-pipeline.yml"
-
-  - project: "osdu/platform/ci-cd-pipelines"
     file: "reporting/reporting.yml"
 
   - local: "devops/core-plus/pipeline/override-stages.yml"
@@ -106,5 +94,4 @@ fossa-analyze:
   image: $CI_REGISTRY/divido/fossa-with-cache:v0.9-jdk17
 fossa-check-notice:
   image: $CI_REGISTRY/divido/fossa-with-cache:v0.9-jdk17
-
 
