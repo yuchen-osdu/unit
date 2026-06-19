@@ -6,12 +6,12 @@ import org.opengroup.osdu.unitservice.model.ScaleOffsetImpl;
 import org.opengroup.osdu.unitservice.model.UnitImpl;
 import org.opengroup.osdu.unitservice.model.extended.QueryResultImpl;
 import org.opengroup.osdu.unitservice.model.extended.Result;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by ZMai on 6/17/2016.
@@ -90,18 +90,24 @@ public class UtilityTest {
         assertEquals(n - offset, result.size());
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void getRangeWithNegativeOffset() throws Exception{
-        List<UnitImpl> units = new ArrayList<>();
-        units.add(new UnitImpl());
-        List<UnitImpl> result = Utility.getRange(units, -1, 1);
+        org.junit.jupiter.api.Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+
+            List<UnitImpl> units = new ArrayList<>();
+            units.add(new UnitImpl());
+            List<UnitImpl> result = Utility.getRange(units, -1, 1);
+            });
     }
 
-    @Test(expected = IndexOutOfBoundsException.class)
+    @Test
     public void getRangeWithTooLargeOffset() throws Exception{
-        List<UnitImpl> units = new ArrayList<>();
-        units.add(new UnitImpl());
-        List<UnitImpl> result = Utility.getRange(units, 10, 1);
+        org.junit.jupiter.api.Assertions.assertThrows(IndexOutOfBoundsException.class, () -> {
+
+            List<UnitImpl> units = new ArrayList<>();
+            units.add(new UnitImpl());
+            List<UnitImpl> result = Utility.getRange(units, 10, 1);
+            });
     }
 
     @Test

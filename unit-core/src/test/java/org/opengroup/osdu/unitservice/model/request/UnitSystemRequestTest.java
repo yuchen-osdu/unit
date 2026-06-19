@@ -1,11 +1,11 @@
 package org.opengroup.osdu.unitservice.model.request;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.opengroup.osdu.unitservice.model.extended.UnitSystemEssenceImpl;
 import org.opengroup.osdu.unitservice.request.UnitSystemRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitSystemRequestTest {
     @Test
@@ -21,6 +21,6 @@ public class UnitSystemRequestTest {
         UnitSystemRequest request = new UnitSystemRequest(essence);
         assertNotNull(request);
         assertNotNull(request.getUnitSystemEssence());
-        Assert.assertEquals(essence, request.getUnitSystemEssence());
+        Assertions.assertEquals(essence, request.getUnitSystemEssence());
     }
 }

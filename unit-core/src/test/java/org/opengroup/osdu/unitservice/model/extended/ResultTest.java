@@ -1,20 +1,19 @@
 package org.opengroup.osdu.unitservice.model.extended;
 
 import org.opengroup.osdu.unitservice.model.UnitImpl;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ResultTest {
     List<UnitImpl> units;
 
-    @Before
+    @BeforeEach
     public void setup() {
         int n = 5;
         units = new ArrayList<>();
@@ -71,24 +70,33 @@ public class ResultTest {
         assertEquals(total, result.getTotalCount());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void setNegativeOffsetTest() {
-        int offset = -1;
-        int total = 100;
-        new Result<UnitImpl>(units, offset, total);
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+
+            int offset = -1;
+            int total = 100;
+            new Result<UnitImpl>(units, offset, total);
+            });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void setNegativeTotalCount() {
-        int offset = 0;
-        int total = -1;
-        new Result<UnitImpl>(units, offset, total);
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+
+            int offset = 0;
+            int total = -1;
+            new Result<UnitImpl>(units, offset, total);
+            });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void hasInconsistentCount() {
-        int offset = 10;
-        int total = units.size();
-        new Result<UnitImpl>(units, offset, total);
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+
+            int offset = 10;
+            int total = units.size();
+            new Result<UnitImpl>(units, offset, total);
+            });
     }
 }

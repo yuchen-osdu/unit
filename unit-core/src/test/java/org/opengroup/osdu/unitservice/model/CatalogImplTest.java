@@ -8,8 +8,8 @@ import org.opengroup.osdu.unitservice.interfaces.*;
 import org.opengroup.osdu.unitservice.helper.*;
 import org.opengroup.osdu.unitservice.model.extended.*;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,12 +19,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import static java.lang.Math.min;
-import static junit.framework.TestCase.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CatalogImplTest {
     private static CatalogImpl catalog;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         InputStream inputStream = CatalogImplTest.class.getResourceAsStream("/TestCatalog.json");
         if(inputStream == null)
@@ -119,40 +119,52 @@ public class CatalogImplTest {
         assertNull(measurementMap);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void geMeasurementMapWithInvalidFromMeasurement() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        List<MeasurementImpl> measurements = catalog.getBaseMeasurements();
-        MeasurementImpl fromMeasurement = new MeasurementImpl();
-        assertNull(fromMeasurement.getNamespace());
-        catalog.getMeasurementMap(fromMeasurement.getNamespace(), measurements.get(0).getNamespace());
+            assertNotNull(catalog);
+
+            List<MeasurementImpl> measurements = catalog.getBaseMeasurements();
+            MeasurementImpl fromMeasurement = new MeasurementImpl();
+            assertNull(fromMeasurement.getNamespace());
+            catalog.getMeasurementMap(fromMeasurement.getNamespace(), measurements.get(0).getNamespace());
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void geMeasurementMapWithNullFromMeasurement() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        List<MeasurementImpl> measurements = catalog.getBaseMeasurements();
-        catalog.getMeasurementMap(null, measurements.get(0).getNamespace());
+            assertNotNull(catalog);
+
+            List<MeasurementImpl> measurements = catalog.getBaseMeasurements();
+            catalog.getMeasurementMap(null, measurements.get(0).getNamespace());
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void geMeasurementMapWithInvalidToMeasurement() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        List<MeasurementImpl> measurements = catalog.getBaseMeasurements();
-        MeasurementImpl toMeasurement = new MeasurementImpl();
-        assertNull(toMeasurement.getNamespace());
-        catalog.getMeasurementMap(measurements.get(0).getNamespace(), toMeasurement.getNamespace());
+            assertNotNull(catalog);
+
+            List<MeasurementImpl> measurements = catalog.getBaseMeasurements();
+            MeasurementImpl toMeasurement = new MeasurementImpl();
+            assertNull(toMeasurement.getNamespace());
+            catalog.getMeasurementMap(measurements.get(0).getNamespace(), toMeasurement.getNamespace());
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void geMeasurementMapWithNullToMeasurement() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        List<MeasurementImpl> measurements = catalog.getBaseMeasurements();
-        catalog.getMeasurementMap(measurements.get(0).getNamespace(), null);
+            assertNotNull(catalog);
+
+            List<MeasurementImpl> measurements = catalog.getBaseMeasurements();
+            catalog.getMeasurementMap(measurements.get(0).getNamespace(), null);
+            });
     }
 
     @Test
@@ -203,40 +215,52 @@ public class CatalogImplTest {
         assertNull(unitMap);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void geUnitMapWithInvalidFromUnit() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        List<UnitImpl> units = catalog.getUnits();
-        UnitImpl fromUnit = new UnitImpl();
-        assertNull(fromUnit.getNamespace());
-        catalog.getUnitMap(fromUnit.getNamespace(), units.get(0).getNamespace());
+            assertNotNull(catalog);
+
+            List<UnitImpl> units = catalog.getUnits();
+            UnitImpl fromUnit = new UnitImpl();
+            assertNull(fromUnit.getNamespace());
+            catalog.getUnitMap(fromUnit.getNamespace(), units.get(0).getNamespace());
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void geUnitMapWithNullFromUnit() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        List<UnitImpl> units = catalog.getUnits();
-        catalog.getUnitMap(null, units.get(0).getNamespace());
+            assertNotNull(catalog);
+
+            List<UnitImpl> units = catalog.getUnits();
+            catalog.getUnitMap(null, units.get(0).getNamespace());
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void geUnitMapWithInvalidToUnit() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        List<UnitImpl> units = catalog.getUnits();
-        UnitImpl toUnit = new UnitImpl();
-        assertNull(toUnit.getNamespace());
-        catalog.getUnitMap(units.get(0).getNamespace(), toUnit.getNamespace());
+            assertNotNull(catalog);
+
+            List<UnitImpl> units = catalog.getUnits();
+            UnitImpl toUnit = new UnitImpl();
+            assertNull(toUnit.getNamespace());
+            catalog.getUnitMap(units.get(0).getNamespace(), toUnit.getNamespace());
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void geUnitMapWithNullToUnit() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        List<UnitImpl> units = catalog.getUnits();
-        catalog.getUnitMap(units.get(0).getNamespace(), null);
+            assertNotNull(catalog);
+
+            List<UnitImpl> units = catalog.getUnits();
+            catalog.getUnitMap(units.get(0).getNamespace(), null);
+            });
     }
 
     @Test
@@ -255,8 +279,8 @@ public class CatalogImplTest {
             if(MapStateHelper.isIdentical(mapState.getState()))
                 identicalFound = true;
         }
-        assertTrue("'unresolved' map state is missing from the catalog", unresolvedFound);
-        assertTrue("'identical' map state is missing from the catalog", identicalFound);
+        assertTrue(unresolvedFound, "'unresolved' map state is missing from the catalog");
+        assertTrue(identicalFound, "'identical' map state is missing from the catalog");
     }
 
     /********************************************
@@ -289,7 +313,6 @@ public class CatalogImplTest {
         assertEquals(1, result.getCount());
         assertEquals(1, result.getTotalCount());
         assertEquals(1, result.getItems().size());
-
 
         // test the offset/limit
         result = catalog.searchUnits("RP66", 0, -1);
@@ -424,15 +447,21 @@ public class CatalogImplTest {
         assertEquals(unitSystem, unitSystem2);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void getUnitSystemWithInvalidName() throws Exception {
-        catalog.getUnitSystem("abc", 0, -1);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            catalog.getUnitSystem("abc", 0, -1);
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void postUnitSystemWithInvalidEssence() throws Exception {
-        UnitSystemEssenceImpl essence = new UnitSystemEssenceImpl("abc");
-        catalog.postUnitSystem(essence, 0, -1);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            UnitSystemEssenceImpl essence = new UnitSystemEssenceImpl("abc");
+            catalog.postUnitSystem(essence, 0, -1);
+            });
     }
 
     @Test
@@ -491,22 +520,28 @@ public class CatalogImplTest {
         assertEquals(unit1, unit2);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void getUnitBySystemAndMeasurementWithInvalidUnitSystem() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        String m = "Length";
-        String english = "abc";
-        catalog.getUnitBySystemAndMeasurement(english, m);
+            assertNotNull(catalog);
+
+            String m = "Length";
+            String english = "abc";
+            catalog.getUnitBySystemAndMeasurement(english, m);
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void getUnitBySystemAndMeasurementWithInvalidMeasurement() throws Exception {
-        assertNotNull(catalog);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-        String m = "abc";
-        String english = "English";
-        catalog.getUnitBySystemAndMeasurement(english, m);
+            assertNotNull(catalog);
+
+            String m = "abc";
+            String english = "English";
+            catalog.getUnitBySystemAndMeasurement(english, m);
+            });
     }
 
     /***********************************************************************
@@ -658,14 +693,20 @@ public class CatalogImplTest {
         assertEquals(50, result.getCount());
     }
 
-    @Test(expected =Exception.class)
+    @Test
     public void getMeasurementsWithNegativeOffset() throws Exception {
-        catalog.getMeasurements(-1, -1);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            catalog.getMeasurements(-1, -1);
+            });
     }
 
-    @Test(expected =Exception.class)
+    @Test
     public void getMeasurementsWithOutOfRangeOffset() throws Exception {
-        catalog.getMeasurements(100000, -1);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            catalog.getMeasurements(100000, -1);
+            });
     }
 
     @Test
@@ -691,16 +732,22 @@ public class CatalogImplTest {
         assertEquals(MapStateHelper.getUnresolvedMapState().getState(), deprecationInfo.getState());
     }
 
-    @Test(expected=Exception.class)
+    @Test
     public void postMeasurementWithEmptyJsonString()
             throws Exception {
-        catalog.postMeasurement(null);
-    }
+                org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
 
-    @Test(expected=Exception.class)
+            catalog.postMeasurement(null);
+                    });
+            }
+
+    @Test
     public void getMeasurementWithInvalidCode() throws Exception {
-        String ancestry = "abc";
-        catalog.getMeasurement(ancestry);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String ancestry = "abc";
+            catalog.getMeasurement(ancestry);
+            });
     }
 
     @Test
@@ -728,25 +775,34 @@ public class CatalogImplTest {
         assertEquals(unitResult1.getCount(), unitResult3.getCount());
     }
 
-    @Test(expected=Exception.class)
+    @Test
     public void postUnitsByMeasurementWithDeprecatedMeasurementEssenceJson() throws Exception {
-        // Length.Millimeter => Length.Millimeter1
-        String essenceJson = "{\"ancestry\":\"Length.Millimeter1\",\"type\":\"UM\"}";
-        MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
-        catalog.postUnitsByMeasurement(essence);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            // Length.Millimeter => Length.Millimeter1
+            String essenceJson = "{\"ancestry\":\"Length.Millimeter1\",\"type\":\"UM\"}";
+            MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
+            catalog.postUnitsByMeasurement(essence);
+            });
     }
 
-    @Test(expected=Exception.class)
+    @Test
     public void postUnitsByMeasurementWithInvalidMeasurementEssenceJson() throws Exception  {
-        String essenceJson = "{\"ancestry2\":\"Length.Millimeter\",\"type\":\"UM\"}";
-        MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
-        catalog.postUnitsByMeasurement(essence);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String essenceJson = "{\"ancestry2\":\"Length.Millimeter\",\"type\":\"UM\"}";
+            MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
+            catalog.postUnitsByMeasurement(essence);
+            });
     }
 
-    @Test(expected=Exception.class)
+    @Test
     public void getUnitsByMeasurementWithInvalidMeasurementAncestry() throws Exception {
-        String ancestry = "abc";
-        catalog.getUnitsByMeasurement(ancestry);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String ancestry = "abc";
+            catalog.getUnitsByMeasurement(ancestry);
+            });
     }
 
     @Test
@@ -774,25 +830,34 @@ public class CatalogImplTest {
         assertEquals(3, preferredUnits.getCount());
     }
 
-    @Test(expected=Exception.class)
+    @Test
     public void postPreferredUnitsByMeasurementWithDeprecatedMeasurementEssenceJson() throws Exception {
-        // Length.Millimeter => Length.Millimeter1
-        String essenceJson = "{\"ancestry\":\"Length.Millimeter1\",\"type\":\"UM\"}";
-        MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
-        catalog.postPreferredUnitsByMeasurement(essence);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            // Length.Millimeter => Length.Millimeter1
+            String essenceJson = "{\"ancestry\":\"Length.Millimeter1\",\"type\":\"UM\"}";
+            MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
+            catalog.postPreferredUnitsByMeasurement(essence);
+            });
     }
 
-    @Test(expected=Exception.class)
+    @Test
     public void postPreferredUnitsByMeasurementWithInvalidMeasurementEssenceJson() throws Exception {
-        String essenceJson = "{\"ancestry\":\"Length.Millimeter1\",\"type\":\"UM\"}";
-        MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
-        catalog.postPreferredUnitsByMeasurement(essence);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String essenceJson = "{\"ancestry\":\"Length.Millimeter1\",\"type\":\"UM\"}";
+            MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
+            catalog.postPreferredUnitsByMeasurement(essence);
+            });
     }
 
-    @Test(expected=Exception.class)
+    @Test
     public void getPreferredUnitsByMeasurementWithInvalidMeasurementCode() throws Exception {
-        String ancestry = "abc";
-        catalog.getPreferredUnitsByMeasurement(ancestry);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String ancestry = "abc";
+            catalog.getPreferredUnitsByMeasurement(ancestry);
+            });
     }
 
     @Test
@@ -807,16 +872,22 @@ public class CatalogImplTest {
         assertEquals(m1, m2);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void getMeasurementInCatalogWithInvalidCode() throws Exception {
-        catalog.getMeasurementInCatalog("length");
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            catalog.getMeasurementInCatalog("length");
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void postMeasurementInCatalogWithJsonString() throws Exception {
-        String essenceJson = "{\"ancestry\":\"length\",\"type\":\"UM\"}";
-        MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
-        catalog.postMeasurementInCatalog(essence);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String essenceJson = "{\"ancestry\":\"length\",\"type\":\"UM\"}";
+            MeasurementEssenceImpl essence = Utility.fromJsonString(essenceJson, MeasurementEssenceImpl.class);
+            catalog.postMeasurementInCatalog(essence);
+            });
     }
 
     /***********************************************************************
@@ -921,15 +992,21 @@ public class CatalogImplTest {
         assertEquals(unitCount, result.getTotalCount());
     }
 
-    @Test(expected =Exception.class)
+    @Test
     public void getUnitsWithNegativeOffset() throws Exception {
-        catalog.getUnits(-1, -1);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            catalog.getUnits(-1, -1);
+            });
     }
 
-    @Test(expected =Exception.class)
+    @Test
     public void getUnitsWithOutOfRangeOffset() throws Exception {
-        final int unitCount = 3695;
-        catalog.getUnits(unitCount, -1);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            final int unitCount = 3695;
+            catalog.getUnits(unitCount, -1);
+            });
     }
 
     @Test
@@ -984,9 +1061,12 @@ public class CatalogImplTest {
         assertNotSame(unit1, unit2);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void postUnitWithNullEssence() throws Exception {
-        catalog.postUnit(null);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            catalog.postUnit(null);
+            });
     }
 
     @Test
@@ -999,10 +1079,13 @@ public class CatalogImplTest {
             assertEquals("ft", unit.getEssence().getSymbol());
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void getUnitsByInvalidSymbol() throws Exception {
-        String symbol = "abc";
-        catalog.getUnitsBySymbol(symbol);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String symbol = "abc";
+            catalog.getUnitsBySymbol(symbol);
+            });
     }
 
     @Test
@@ -1099,36 +1182,48 @@ public class CatalogImplTest {
         assertNotNull(inverseScaleOffset);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void postConversionScaleOffsetWithInvalidEssences() throws Exception {
-        catalog.postConversionScaleOffset(null, null);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            catalog.postConversionScaleOffset(null, null);
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void postConversionScaleOffsetWithIncompatibleUnits() throws Exception {
-        String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":1.0,\"offset\":0.0},\"symbol\":\"dB\",\"baseMeasurement\":{\"ancestry\":\"Attenuation\",\"type\":\"UM\"},\"type\":\"USO\"}";
-        String toUnitEssenceJson   = "{\"abcd\":{\"a\":0.0,\"b\":1.0E-4,\"c\":1.0,\"d\":0.0},\"symbol\":\"dB/km\",\"baseMeasurement\":{\"ancestry\":\"none\",\"type\":\"UM\"},\"type\":\"UAD\"}";
-        UnitEssenceImpl fromUnitEssence = Utility.fromJsonString(fromUnitEssenceJson, UnitEssenceImpl.class);
-        UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);              
-        catalog.postConversionScaleOffset(fromUnitEssence, toUnitEssence);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":1.0,\"offset\":0.0},\"symbol\":\"dB\",\"baseMeasurement\":{\"ancestry\":\"Attenuation\",\"type\":\"UM\"},\"type\":\"USO\"}";
+            String toUnitEssenceJson   = "{\"abcd\":{\"a\":0.0,\"b\":1.0E-4,\"c\":1.0,\"d\":0.0},\"symbol\":\"dB/km\",\"baseMeasurement\":{\"ancestry\":\"none\",\"type\":\"UM\"},\"type\":\"UAD\"}";
+            UnitEssenceImpl fromUnitEssence = Utility.fromJsonString(fromUnitEssenceJson, UnitEssenceImpl.class);
+            UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);              
+            catalog.postConversionScaleOffset(fromUnitEssence, toUnitEssence);
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void postConversionScaleOffsetWithBadFromUnit() throws Exception {
-        String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":0.0,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
-        String toUnitEssenceJson   = "{\"scaleOffset\":{\"scale\":1.0,\"offset\":0.0},\"symbol\":\"m\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
-        UnitEssenceImpl fromUnitEssence = Utility.fromJsonString(fromUnitEssenceJson, UnitEssenceImpl.class);
-        UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);      
-        catalog.postConversionScaleOffset(fromUnitEssence, toUnitEssence);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":0.0,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
+            String toUnitEssenceJson   = "{\"scaleOffset\":{\"scale\":1.0,\"offset\":0.0},\"symbol\":\"m\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
+            UnitEssenceImpl fromUnitEssence = Utility.fromJsonString(fromUnitEssenceJson, UnitEssenceImpl.class);
+            UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);      
+            catalog.postConversionScaleOffset(fromUnitEssence, toUnitEssence);
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void postConversionScaleOffsetWithBadToUnit() throws Exception {
-        String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
-        String toUnitEssenceJson   = "{\"scaleOffset\":{\"scale\":0.0,\"offset\":0.0},\"symbol\":\"m\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
-        UnitEssenceImpl fromUnitEssence = Utility.fromJsonString(fromUnitEssenceJson, UnitEssenceImpl.class);
-        UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);      
-        catalog.postConversionScaleOffset(fromUnitEssence, toUnitEssence);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
+            String toUnitEssenceJson   = "{\"scaleOffset\":{\"scale\":0.0,\"offset\":0.0},\"symbol\":\"m\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
+            UnitEssenceImpl fromUnitEssence = Utility.fromJsonString(fromUnitEssenceJson, UnitEssenceImpl.class);
+            UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);      
+            catalog.postConversionScaleOffset(fromUnitEssence, toUnitEssence);
+            });
     }
 
     @Test
@@ -1242,18 +1337,24 @@ public class CatalogImplTest {
         assertNotNull(inverseAbcd);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void postConversionABCDWithInvalidEssence() throws Exception {
-        catalog.postConversionABCD(null, null);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            catalog.postConversionABCD(null, null);
+            });
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void postConversionABCDWithIncompatibleUnits() throws Exception {
-        String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":1.0,\"offset\":0.0},\"symbol\":\"dB\",\"baseMeasurement\":{\"ancestry\":\"Attenuation\",\"type\":\"UM\"},\"type\":\"USO\"}";
-        String toUnitEssenceJson   = "{\"abcd\":{\"a\":0.0,\"b\":1.0E-4,\"c\":1.0,\"d\":0.0},\"symbol\":\"dB/km\",\"baseMeasurement\":{\"ancestry\":\"none\",\"type\":\"UM\"},\"type\":\"UAD\"}";
-        UnitEssenceImpl fromUnitEssence = Utility.fromJsonString(fromUnitEssenceJson, UnitEssenceImpl.class);
-        UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);              
-        catalog.postConversionABCD(fromUnitEssence, toUnitEssence);
+        org.junit.jupiter.api.Assertions.assertThrows(Exception.class, () -> {
+
+            String fromUnitEssenceJson = "{\"scaleOffset\":{\"scale\":1.0,\"offset\":0.0},\"symbol\":\"dB\",\"baseMeasurement\":{\"ancestry\":\"Attenuation\",\"type\":\"UM\"},\"type\":\"USO\"}";
+            String toUnitEssenceJson   = "{\"abcd\":{\"a\":0.0,\"b\":1.0E-4,\"c\":1.0,\"d\":0.0},\"symbol\":\"dB/km\",\"baseMeasurement\":{\"ancestry\":\"none\",\"type\":\"UM\"},\"type\":\"UAD\"}";
+            UnitEssenceImpl fromUnitEssence = Utility.fromJsonString(fromUnitEssenceJson, UnitEssenceImpl.class);
+            UnitEssenceImpl toUnitEssence = Utility.fromJsonString(toUnitEssenceJson, UnitEssenceImpl.class);              
+            catalog.postConversionABCD(fromUnitEssence, toUnitEssence);
+            });
     }
 
     @Test

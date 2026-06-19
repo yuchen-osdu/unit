@@ -13,14 +13,11 @@
     </parent>
 
     <artifactId>unit-gke</artifactId>
-    <version>0.30.0-SNAPSHOT</version>
     <name>unit-gke</name>
     <description>Unit service Google Kubernetes Engine deployment</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -39,7 +36,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.2.2</version>
                 <configuration>
                     <mainClass>
                         org.opengroup.osdu.unitservice.UomGkeApplication
@@ -48,7 +44,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                 </configuration>

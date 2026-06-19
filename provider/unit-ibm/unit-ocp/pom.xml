@@ -14,7 +14,6 @@
 
 	<packaging>jar</packaging>
 	<artifactId>unit-ocp</artifactId>
-	<version>0.30.0-SNAPSHOT</version>
 	<name>unit-ocp</name>
 	<description>Unit service IBM OpenShift Deployment</description>
 
@@ -27,17 +26,13 @@
 		<objectify.version>5.1.22</objectify.version>
 		<slf4j.version>1.7.25</slf4j.version>
 		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
 		<os-core-lib-ibm.version>0.26.0</os-core-lib-ibm.version>
-		<spring-security-core.version>6.2.3</spring-security-core.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.opengroup.osdu.unit-service</groupId>
 			<artifactId>unit-core</artifactId>
-			<version>${parent.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>
@@ -69,7 +64,6 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>6.1.6</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -79,28 +73,23 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.28</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
-			<version>2.20.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.20.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>2.20.0</version>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.5.6</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.dom4j</groupId>
@@ -167,18 +156,10 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>${spring-security-core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>6.2.3</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.security</groupId>
-					<artifactId>spring-security-core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.annotation</groupId>
@@ -189,7 +170,6 @@
 		<dependency>
 			<groupId>jakarta.inject</groupId>
 			<artifactId>jakarta.inject-api</artifactId>
-			<version>2.0.1</version>
 		</dependency>
 
 		<dependency>
@@ -201,7 +181,6 @@
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-			<version>6.0.0</version>
 		</dependency>
 
 		<dependency>
@@ -209,50 +188,12 @@
 			<artifactId>jakarta.xml.bind-api</artifactId>
 			<version>4.0.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
 	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.netty</groupId>
-				<artifactId>netty-bom</artifactId>
-				<version>4.1.118.Final</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/io.netty/netty-bom -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>6.2.3</version>
-				<exclusions>
-					<exclusion>
-						<groupId>org.springframework</groupId>
-						<artifactId>spring-web</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.springframework.security</groupId>
-						<artifactId>spring-security-core</artifactId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>6.3.5</version>
-				<scope>compile</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>3.2.2</version>
 				<executions>
 					<execution>
 						<goals>
@@ -269,7 +210,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.2.1</version>
+				<version>${maven-surefire-plugin.version}</version>
 				<configuration>
 					<redirectTestOutputToFile>true</redirectTestOutputToFile>
 				</configuration>

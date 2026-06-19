@@ -28,7 +28,6 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>unit-aws</artifactId>
-    <version>0.30.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>unit-aws</name>
     <description>Unit service AWS deployment</description>
@@ -44,8 +43,6 @@
         <resteasy.version>3.6.2.Final</resteasy.version>
         <objectify.version>5.1.22</objectify.version>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
         <junit.version>4.13.2</junit.version>
     </properties>
 
@@ -68,6 +65,14 @@
             <artifactId>os-core-lib-aws</artifactId>
             <version>6.0.0</version>
         </dependency>
+        <!-- os-core-common 7.x declares lettuce-core as provided (CVE-2025-58057); declare
+             it here so os-core-lib-aws's CacheFactory.getRedisCache can resolve
+             io.lettuce.core.RedisException at runtime. -->
+        <dependency>
+            <groupId>io.lettuce</groupId>
+            <artifactId>lettuce-core</artifactId>
+            <version>${lettuce.version}</version>
+        </dependency>
 
 
         <!-- Internal packages -->
@@ -78,23 +83,14 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>6.0.7</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.security</groupId>
-                    <artifactId>spring-security-crypto</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
-            <version>6.3.8</version>
         </dependency>
         <dependency>
             <groupId>org.opengroup.osdu.unit-service</groupId>
             <artifactId>unit-core</artifactId>
-            <version>${parent.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>io.netty</groupId>
@@ -108,12 +104,10 @@
         <dependency>
             <groupId>jakarta.inject</groupId>
             <artifactId>jakarta.inject-api</artifactId>
-            <version>2.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -139,7 +133,6 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -160,7 +153,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.2.2</version>
                 <executions>
                     <execution>
                         <goals>
@@ -177,17 +169,12 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <version>3.7.0</version>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>17</source>
-                    <target>17</target>
-                </configuration>
             </plugin>
 
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                 </configuration>
@@ -195,7 +182,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+                <version>${jacoco.version}</version>
                 <executions>
                     <execution>
                         <goals>

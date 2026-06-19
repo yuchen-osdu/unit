@@ -3,18 +3,18 @@ package org.opengroup.osdu.unitservice.model.extended;
 import org.opengroup.osdu.unitservice.interfaces.*;
 import org.opengroup.osdu.unitservice.model.*;
 import org.opengroup.osdu.unitservice.interfaces.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.TestCase.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CatalogResponseTest {
     CatalogResponse catalogResponse;
 
-    @Before
+    @BeforeEach
     public void setup() {
         catalogResponse = new CatalogResponse();
     }
@@ -89,7 +89,6 @@ public class CatalogResponseTest {
         assertEquals(n, catalogResponse.getTotalMeasurementCount());
         assertEquals(n, catalogResponse.getMeasurements().size());
     }
-
 
     @Test
     public void measurementMapListAccessor() {

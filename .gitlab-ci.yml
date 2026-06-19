@@ -22,6 +22,9 @@ variables:
   ACCEPTANCE_TEST_DIR: $CI_PROJECT_DIR/unit-acceptance-test
   CIMPL_BAREMETAL_PYTHON_INT_TEST_SUBDIR: $CI_PROJECT_DIR/unit-acceptance-test
   CIMPL_OPENAPI_CONFIG_ROUTE: /api/unit/api-docs/swagger-config
+  # Java service with Python acceptance tests — override the Python->JSON auto-detection
+  # so the openapi-spec check fetches the YAML spec served by springdoc
+  CIMPL_OPENAPI_YAML_ROUTE: /api/unit/api-docs.yaml
 
 .maven:
   image: maven:3.9.3-eclipse-temurin-17

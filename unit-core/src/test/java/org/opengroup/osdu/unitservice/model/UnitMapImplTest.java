@@ -1,13 +1,12 @@
 package org.opengroup.osdu.unitservice.model;
 
 import org.opengroup.osdu.unitservice.interfaces.UnitMapItem;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static junit.framework.TestCase.*;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitMapImplTest {
     String fromNamespace = "SLB";
@@ -17,7 +16,7 @@ public class UnitMapImplTest {
     UnitImpl toUnit;
     UnitMapItemImpl unitMapItem;
 
-    @Before
+    @BeforeEach
     public void setup() {
         unitMap = new UnitMapImpl(fromNamespace, toNamespace);
         fromUnit = new UnitImpl();
