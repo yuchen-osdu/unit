@@ -9,11 +9,11 @@ import org.apache.lucene.analysis.core.WhitespaceTokenizerFactory;
 import org.apache.lucene.analysis.custom.CustomAnalyzer;
 import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
 import org.apache.lucene.search.Query;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Created by ZMai on 6/16/2016.
@@ -23,7 +23,7 @@ public class KeywordQueryBuilderTest {
     private Analyzer analyzer;
     private String[] supportedFields = LuceneConstantsTest.SupportedFields;
 
-    @Before
+    @BeforeEach
     public void setup() {
         try {
             analyzer = CustomAnalyzer.builder()
@@ -90,26 +90,35 @@ public class KeywordQueryBuilderTest {
         assertEquals(queryText, query.toString());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createFieldQueryTestWithoutKeywordAndDataTypeTest() throws Exception {
-        assertNotNull(analyzer);
-        SearchInput searchInput = new SearchInput(null);
-        Query query = KeywordQueryBuilder.createQuery(searchInput, analyzer, LuceneConstants.DefaultField);
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+
+            assertNotNull(analyzer);
+            SearchInput searchInput = new SearchInput(null);
+            Query query = KeywordQueryBuilder.createQuery(searchInput, analyzer, LuceneConstants.DefaultField);
+            });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createFieldQueryTestWithInvalidFieldOperatorTest1() throws  Exception
     {
-        assertNotNull(analyzer);
-        SearchInput searchInput = new SearchInput("Name: A10");
-        Query query = KeywordQueryBuilder.createQuery(searchInput, analyzer, LuceneConstants.DefaultField);
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+
+            assertNotNull(analyzer);
+            SearchInput searchInput = new SearchInput("Name: A10");
+            Query query = KeywordQueryBuilder.createQuery(searchInput, analyzer, LuceneConstants.DefaultField);
+            });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void createFieldQueryTestWithInvalidFieldOperatorTest2() throws  Exception
     {
-        assertNotNull(analyzer);
-        SearchInput searchInput = new SearchInput("Name :A10");
-        Query query = KeywordQueryBuilder.createQuery(searchInput, analyzer, LuceneConstants.DefaultField);
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+
+            assertNotNull(analyzer);
+            SearchInput searchInput = new SearchInput("Name :A10");
+            Query query = KeywordQueryBuilder.createQuery(searchInput, analyzer, LuceneConstants.DefaultField);
+            });
     }
 }

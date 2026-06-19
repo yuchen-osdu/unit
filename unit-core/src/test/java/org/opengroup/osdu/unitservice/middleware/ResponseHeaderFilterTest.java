@@ -1,11 +1,11 @@
 package org.opengroup.osdu.unitservice.middleware;
 
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+
 import org.opengroup.osdu.core.common.http.ResponseHeadersFactory;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
 import jakarta.servlet.FilterChain;
@@ -14,8 +14,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.never;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ResponseHeaderFilterTest {
 
     @Mock
@@ -54,7 +56,7 @@ public class ResponseHeaderFilterTest {
         verify(httpServletResponse, never()).setStatus(HttpServletResponse.SC_OK);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         responseHeaderFilter.destroy();
     }

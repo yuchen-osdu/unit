@@ -35,6 +35,20 @@ spec:
             runAsNonRoot: true
           ports:
             - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+              port: 8081
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+              port: 8081
+            initialDelaySeconds: 60
+            periodSeconds: 15
+            failureThreshold: 5
           resources:
             requests:
               cpu: {{ .Values.data.requestsCpu | quote }}

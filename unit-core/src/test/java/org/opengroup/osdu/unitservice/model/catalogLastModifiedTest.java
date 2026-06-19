@@ -1,14 +1,14 @@
 package org.opengroup.osdu.unitservice.model;
 
 import org.opengroup.osdu.unitservice.interfaces.CatalogLastModified;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class catalogLastModifiedTest {
     @Test

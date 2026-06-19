@@ -1,17 +1,19 @@
 package org.opengroup.osdu.unitservice.api;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+
 import org.opengroup.osdu.core.common.info.VersionInfoBuilder;
 import org.opengroup.osdu.core.common.model.info.VersionInfo;
 import java.io.IOException;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class InfoApiTest {
 
     @InjectMocks

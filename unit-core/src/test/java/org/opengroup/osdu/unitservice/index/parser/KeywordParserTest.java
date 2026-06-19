@@ -1,12 +1,12 @@
 package org.opengroup.osdu.unitservice.index.parser;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by ZMai on 6/15/2016.
@@ -166,25 +166,34 @@ public class KeywordParserTest {
         assertFalse(secondItem.getValue().isQuoted());
     }
 
-    @Test(expected = MissingFieldValueException.class)
+    @Test
     public void parseKeyword1WithInvalidFieldOperator() throws  Exception
     {
-        KeywordParser parser = new KeywordParser();
-        List<List<Item>> itemOrList = parser.parse("Name: A10");
+        org.junit.jupiter.api.Assertions.assertThrows(MissingFieldValueException.class, () -> {
+
+            KeywordParser parser = new KeywordParser();
+            List<List<Item>> itemOrList = parser.parse("Name: A10");
+            });
     }
 
-    @Test(expected = UnexpectedParameterException.class)
+    @Test
     public void parseKeyword2WithInvalidFieldOperator() throws  Exception
     {
-        KeywordParser parser = new KeywordParser();
-        List<List<Item>> itemOrList = parser.parse("Name :A10");
+        org.junit.jupiter.api.Assertions.assertThrows(UnexpectedParameterException.class, () -> {
+
+            KeywordParser parser = new KeywordParser();
+            List<List<Item>> itemOrList = parser.parse("Name :A10");
+            });
     }
 
-    @Test(expected = UnexpectedParameterException.class)
+    @Test
     public void parseKeyword3WithInvalidFieldOperator() throws  Exception
     {
-        KeywordParser parser = new KeywordParser();
-        List<List<Item>> itemOrList = parser.parse("Name : A10");
+        org.junit.jupiter.api.Assertions.assertThrows(UnexpectedParameterException.class, () -> {
+
+            KeywordParser parser = new KeywordParser();
+            List<List<Item>> itemOrList = parser.parse("Name : A10");
+            });
     }
 
     @Test
@@ -221,25 +230,34 @@ public class KeywordParserTest {
         assertFalse(item.getValue().isQuoted());
     }
 
-    @Test(expected = UnexpectedParameterException.class)
+    @Test
     public void parseKeyword1WithInvalidExcluded() throws Exception
     {
-        KeywordParser parser = new KeywordParser();
-        List<List<Item>> itemOrList = parser.parse("-");
+        org.junit.jupiter.api.Assertions.assertThrows(UnexpectedParameterException.class, () -> {
+
+            KeywordParser parser = new KeywordParser();
+            List<List<Item>> itemOrList = parser.parse("-");
+            });
     }
 
-    @Test(expected = UnexpectedParameterException.class)
+    @Test
     public void parseKeyword2WithInvalidExcluded() throws Exception
     {
-        KeywordParser parser = new KeywordParser();
-        List<List<Item>> itemOrList = parser.parse("--");
+        org.junit.jupiter.api.Assertions.assertThrows(UnexpectedParameterException.class, () -> {
+
+            KeywordParser parser = new KeywordParser();
+            List<List<Item>> itemOrList = parser.parse("--");
+            });
     }
 
-    @Test(expected = UnexpectedParameterException.class)
+    @Test
     public void parseKeyword3WithInvalidExcluded() throws Exception
     {
-        KeywordParser parser = new KeywordParser();
-        List<List<Item>> itemOrList = parser.parse("Name:-A10");
+        org.junit.jupiter.api.Assertions.assertThrows(UnexpectedParameterException.class, () -> {
+
+            KeywordParser parser = new KeywordParser();
+            List<List<Item>> itemOrList = parser.parse("Name:-A10");
+            });
     }
 
     @Test
@@ -331,18 +349,24 @@ public class KeywordParserTest {
         assertEquals(1, itemOrList.size());
     }
 
-    @Test(expected = UnexpectedParameterException.class)
+    @Test
     public void parseKeyword1WithInvalidQuote() throws Exception
     {
-        KeywordParser parser = new KeywordParser();
-        List<List<Item>> itemOrList = parser.parse("Name:\" \"");
+        org.junit.jupiter.api.Assertions.assertThrows(UnexpectedParameterException.class, () -> {
+
+            KeywordParser parser = new KeywordParser();
+            List<List<Item>> itemOrList = parser.parse("Name:\" \"");
+            });
     }
 
-    @Test(expected = UnexpectedParameterException.class)
+    @Test
     public void parseKeyword2WithInvalidQuote() throws Exception
     {
-        KeywordParser parser = new KeywordParser();
-        List<List<Item>> itemOrList = parser.parse("\" \":A10");
+        org.junit.jupiter.api.Assertions.assertThrows(UnexpectedParameterException.class, () -> {
+
+            KeywordParser parser = new KeywordParser();
+            List<List<Item>> itemOrList = parser.parse("\" \":A10");
+            });
     }
 
 }

@@ -17,10 +17,10 @@
 
 package org.opengroup.osdu.unitservice.logging;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.mockito.Matchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -28,17 +28,19 @@ import static org.mockito.Mockito.when;
 
 import java.util.Collections;
 import java.util.List;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
 import org.opengroup.osdu.unitservice.constant.UnitServiceRole;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class AuditLoggerTest {
 
   @Mock
@@ -56,15 +58,15 @@ public class AuditLoggerTest {
   private List<String> resource;
   private List<String> requiredGroupsForAction;
 
-  @Before
+  @BeforeEach
   public void setup() {
-    MockitoAnnotations.initMocks(this);
+    
 
     resource = Collections.singletonList("1");
     requiredGroupsForAction = Collections.singletonList(UnitServiceRole.UNIT_AUTHENTICATED_USER);
-    when(dpsHeaders.getUserEmail()).thenReturn("user");
-    when(httpRequest.getHeader("X-Forwarded-For")).thenReturn("127.0.0.0:1234");
-    when(httpRequest.getHeader("user-agent")).thenReturn("testAgent");
+    lenient().when(dpsHeaders.getUserEmail()).thenReturn("user");
+    lenient().when(httpRequest.getHeader("X-Forwarded-For")).thenReturn("127.0.0.0:1234");
+    lenient().when(httpRequest.getHeader("user-agent")).thenReturn("testAgent");
   }
 
   @Test

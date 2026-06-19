@@ -1,12 +1,12 @@
 package org.opengroup.osdu.unitservice.model;
 
 import org.opengroup.osdu.unitservice.helper.Utility;
-import junit.framework.TestCase;
-import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.*;
-import static junit.framework.TestCase.assertTrue;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UnitEssenceImplTest {
 
@@ -25,7 +25,7 @@ public class UnitEssenceImplTest {
         UnitEssenceImpl essence = new UnitEssenceImpl();
         String symbol = "ft";
         essence.setSymbol(symbol);
-        TestCase.assertEquals(symbol, essence.getSymbol());
+        assertEquals(symbol, essence.getSymbol());
     }
 
     @Test

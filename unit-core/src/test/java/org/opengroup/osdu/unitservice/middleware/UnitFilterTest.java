@@ -1,13 +1,13 @@
 package org.opengroup.osdu.unitservice.middleware;
 
 import jakarta.servlet.ServletException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+
 import org.opengroup.osdu.core.common.http.ResponseHeadersFactory;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
 import jakarta.servlet.FilterChain;
@@ -16,9 +16,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.when;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UnitFilterTest {
 
     @Mock
@@ -39,7 +41,7 @@ public class UnitFilterTest {
     @InjectMocks
     private UnitFilter unitFilter;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         unitFilter.ACCESS_CONTROL_ALLOW_ORIGIN_DOMAINS = "*";
     }
@@ -60,7 +62,7 @@ public class UnitFilterTest {
         verify(httpServletResponse).addHeader(DpsHeaders.CORRELATION_ID, "correlation-id");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         unitFilter.destroy();
     }

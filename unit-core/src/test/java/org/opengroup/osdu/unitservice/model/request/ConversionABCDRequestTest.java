@@ -4,8 +4,8 @@ import org.opengroup.osdu.unitservice.model.MeasurementEssenceImpl;
 import org.opengroup.osdu.unitservice.model.ScaleOffsetImpl;
 import org.opengroup.osdu.unitservice.model.UnitEssenceImpl;
 import org.opengroup.osdu.unitservice.request.ConversionABCDRequest;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConversionABCDRequestTest {
     private UnitEssenceImpl getUnit(){

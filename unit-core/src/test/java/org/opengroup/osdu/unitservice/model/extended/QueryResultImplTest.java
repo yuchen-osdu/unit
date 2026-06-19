@@ -4,10 +4,10 @@ import org.opengroup.osdu.unitservice.model.MeasurementImpl;
 import org.opengroup.osdu.unitservice.model.MeasurementMapItemImpl;
 import org.opengroup.osdu.unitservice.model.UnitImpl;
 import org.opengroup.osdu.unitservice.model.UnitMapItemImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class QueryResultImplTest {
 
@@ -77,28 +77,37 @@ public class QueryResultImplTest {
         assertEquals(totalCount, queryResult.getTotalCount());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void setNegativeOffsetTest() {
-        QueryResultImpl queryResult = new QueryResultImpl();
-        queryResult.setOffset(-1);
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+
+            QueryResultImpl queryResult = new QueryResultImpl();
+            queryResult.setOffset(-1);
+            });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void setNegativeTotalCount() {
-        QueryResultImpl queryResult = new QueryResultImpl();
-        queryResult.setTotalCount(-1);
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
+
+            QueryResultImpl queryResult = new QueryResultImpl();
+            queryResult.setTotalCount(-1);
+            });
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void hasInconsistentCount() {
-        QueryResultImpl queryResult = new QueryResultImpl();
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> {
 
-        int count = 0;
-        for(int i = 0; i < 5; i++) {
-            queryResult.addUnit(new UnitImpl());
-            count++;
-        }
-        // Exception will be thrown when calling getCount() before setting totalCount
-        assertEquals(count, queryResult.getCount());
+            QueryResultImpl queryResult = new QueryResultImpl();
+
+            int count = 0;
+            for(int i = 0; i < 5; i++) {
+                queryResult.addUnit(new UnitImpl());
+                count++;
+            }
+            // Exception will be thrown when calling getCount() before setting totalCount
+            assertEquals(count, queryResult.getCount());
+            });
     }
 }

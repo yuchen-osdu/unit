@@ -1,12 +1,11 @@
 package org.opengroup.osdu.unitservice.helper;
 
 import org.opengroup.osdu.unitservice.model.MapStateImpl;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.*;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MapStateHelperTest {
     private MapStateImpl identical = new MapStateImpl(
@@ -22,14 +21,14 @@ public class MapStateHelperTest {
     private static MapStateImpl defaultIdenticalState;
     private static MapStateImpl defaultUnresolvedState;
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClassSetup() {
         // Get the default states before tests
         defaultIdenticalState = MapStateHelper.getIdenticalMapState();
         defaultUnresolvedState = MapStateHelper.getUnresolvedMapState();
     }
 
-    @After
+    @AfterEach
     public void teardown() {
         //Set the states back
         MapStateHelper.setIdenticalState(defaultIdenticalState);

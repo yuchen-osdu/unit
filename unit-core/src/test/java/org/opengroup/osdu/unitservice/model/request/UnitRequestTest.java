@@ -1,12 +1,11 @@
 package org.opengroup.osdu.unitservice.model.request;
 
-import junit.framework.TestCase;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.opengroup.osdu.unitservice.model.UnitEssenceImpl;
 import org.opengroup.osdu.unitservice.request.UnitRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitRequestTest {
 
@@ -14,7 +13,7 @@ public class UnitRequestTest {
     public void emptyTest(){
         UnitRequest request = new UnitRequest();
         assertNotNull(request);
-        TestCase.assertNull(request.getUnitEssence());
+        assertNull(request.getUnitEssence());
         assertNull(request.getPersistableReference());
     }
 
@@ -71,39 +70,39 @@ public class UnitRequestTest {
         String v2_pr = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         UnitRequest request = new UnitRequest(null, v2_pr);
         assertNotNull(request);
-        TestCase.assertNotNull(request.getUnitEssence());
+        assertNotNull(request.getUnitEssence());
         assertNotNull(request.getPersistableReference());
         v2_pr = v2_pr.replace("symbol", "Corrupted");
         request = new UnitRequest(null, v2_pr);
         assertNotNull(request);
         assertNotNull(request.getPersistableReference());
-        TestCase.assertNull(request.getUnitEssence());
+        assertNull(request.getUnitEssence());
         v2_pr = v2_pr.replace("Corrupted", "symbol");
         v2_pr = v2_pr.replace("0.0", "NaN");
         request = new UnitRequest(null, v2_pr);
         assertNotNull(request);
         assertNotNull(request.getPersistableReference());
-        TestCase.assertNull(request.getUnitEssence());
+        assertNull(request.getUnitEssence());
         v2_pr = v2_pr.replace("NaN", "0.0");
         v2_pr = v2_pr.replace("ancestry", "Corrupted");
         request = new UnitRequest(null, v2_pr);
         assertNotNull(request);
         assertNotNull(request.getPersistableReference());
-        TestCase.assertNull(request.getUnitEssence());
+        assertNull(request.getUnitEssence());
         v2_pr = "{\"abcd\":{\"a\":2298.35,\"b\":5.0,\"c\":9.0,\"d\":0.0},\"symbol\":\"degF\",\"baseMeasurement\":{\"ancestry\":\"K\",\"type\":\"UM\"},\"type\":\"UAD\"}";
         request = new UnitRequest(null, v2_pr);
         assertNotNull(request);
-        TestCase.assertNotNull(request.getUnitEssence());
+        assertNotNull(request.getUnitEssence());
         assertNotNull(request.getPersistableReference());
         v2_pr = v2_pr.replace("0.0", "NaN");
         request = new UnitRequest(null, v2_pr);
         assertNotNull(request);
-        TestCase.assertNull(request.getUnitEssence());
+        assertNull(request.getUnitEssence());
         assertNotNull(request.getPersistableReference());
         v2_pr = v2_pr.replace("NaN", "\"NaN\"");
         request = new UnitRequest(null, v2_pr);
         assertNotNull(request);
-        TestCase.assertNull(request.getUnitEssence());
+        assertNull(request.getUnitEssence());
         assertNotNull(request.getPersistableReference());
     }
 
@@ -114,21 +113,21 @@ public class UnitRequestTest {
         assertNotNull(ess);
         UnitRequest request = new UnitRequest(ess, null);
         assertNotNull(request);
-        TestCase.assertNotNull(request.getUnitEssence());
+        assertNotNull(request.getUnitEssence());
         assertNull(request.getPersistableReference());
-        TestCase.assertEquals("UAD", request.getUnitEssence().getType());
+        assertEquals("UAD", request.getUnitEssence().getType());
         String v2_pr2 = "{\"scaleOffset\":{\"scale\":0.3048,\"offset\":0.0},\"symbol\":\"ft\",\"baseMeasurement\":{\"ancestry\":\"Length\",\"type\":\"UM\"},\"type\":\"USO\"}";
         ess = Utility.fromJsonString(v2_pr2, UnitEssenceImpl.class);
         assertNotNull(ess);
         request = new UnitRequest(ess, null);
         assertNotNull(request);
-        TestCase.assertNotNull(request.getUnitEssence());
+        assertNotNull(request.getUnitEssence());
         assertNull(request.getPersistableReference());
-        TestCase.assertEquals("USO", request.getUnitEssence().getType());
+        assertEquals("USO", request.getUnitEssence().getType());
         request = new UnitRequest(ess, v2_pr);
         assertNotNull(request);
-        TestCase.assertNotNull(request.getUnitEssence());
+        assertNotNull(request.getUnitEssence());
         assertNotNull(request.getPersistableReference());
-        TestCase.assertEquals("USO", request.getUnitEssence().getType()); // essence wins over persistableReference
+        assertEquals("USO", request.getUnitEssence().getType()); // essence wins over persistableReference
     }
 }

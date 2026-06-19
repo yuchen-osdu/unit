@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.opengroup.osdu.unitservice.interfaces.*;
 import org.opengroup.osdu.unitservice.model.*;
 import org.opengroup.osdu.unitservice.model.extended.ConversionResultImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -13,8 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static junit.framework.TestCase.fail;
-
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * This class is to detect any inconsistency between the API class/interface and implementation class

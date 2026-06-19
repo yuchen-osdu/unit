@@ -1,18 +1,20 @@
 package org.opengroup.osdu.unitservice.middleware;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+
 import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
 import org.springframework.security.web.firewall.RequestRejectedException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class LogAndConvertRequestRejectedExceptionToNotFoundFilterTest {
 
     @InjectMocks
@@ -26,7 +28,6 @@ public class LogAndConvertRequestRejectedExceptionToNotFoundFilterTest {
         HttpServletRequest httpServletRequest = Mockito.mock(HttpServletRequest.class);
         HttpServletResponse httpServletResponse = Mockito.mock(HttpServletResponse.class);
         RequestRejectedException exception = new RequestRejectedException("error");
-
 
         filter.handle(httpServletRequest, httpServletResponse, exception);
 

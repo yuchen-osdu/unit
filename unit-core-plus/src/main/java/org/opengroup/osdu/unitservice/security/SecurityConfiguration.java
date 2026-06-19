@@ -56,6 +56,8 @@ public class SecurityConfiguration {
     "/api/unit/actuator/health",
     "**/swagger-ui/**/",
     "**/api-docs/**",
+    "/api-docs.yaml",
+    "**/api-docs.yaml",
     "/unit",
     "/health/**"
   };

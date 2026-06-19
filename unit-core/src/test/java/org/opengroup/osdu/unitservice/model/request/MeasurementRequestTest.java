@@ -3,9 +3,9 @@ package org.opengroup.osdu.unitservice.model.request;
 import org.opengroup.osdu.unitservice.helper.Utility;
 import org.opengroup.osdu.unitservice.model.MeasurementEssenceImpl;
 import org.opengroup.osdu.unitservice.request.MeasurementRequest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MeasurementRequestTest {
 

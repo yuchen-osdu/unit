@@ -1,16 +1,14 @@
 package org.opengroup.osdu.unitservice.model;
 
-import junit.framework.TestCase;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.*;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitSystemImplTest {
     UnitSystemImpl unitSystem;
 
-    @Before
+    @BeforeEach
     public void setup() {
         unitSystem = new UnitSystemImpl();
     }
@@ -31,7 +29,7 @@ public class UnitSystemImplTest {
         assertEquals(0, unitSystem.getNativeUnitAssignments().size());
         assertNotNull(unitSystem.getUnitAssignments());
         assertEquals(0, unitSystem.getUnitAssignments().size());
-        TestCase.assertNotNull(unitSystem.getEssence());
+        assertNotNull(unitSystem.getEssence());
     }
 
     @Test
@@ -176,6 +174,5 @@ public class UnitSystemImplTest {
         UnitImpl unit = new UnitImpl();
         return new UnitAssignmentImpl(measurement, unit);
     }
-
 
 }
