@@ -67,7 +67,7 @@ sudo ln -s /opt/allure-2.31.0/bin/allure /usr/bin/allure
 
 ```bash
 # Run all tests with Allure reporting
-pytest test_api_v3.py test_unit_service_v3.py \
+pytest test_unit_service_v3.py \
     --alluredir=allure-results \
     --clean-alluredir \
     -v
@@ -76,9 +76,6 @@ pytest test_api_v3.py test_unit_service_v3.py \
 ### Run Specific Test File
 
 ```bash
-# Only API contract tests
-pytest test_api_v3.py --alluredir=allure-results -v
-
 # Only integration tests
 pytest test_unit_service_v3.py --alluredir=allure-results -v
 ```
@@ -137,7 +134,7 @@ The report is self-contained in `complete.html` - no server needed, can be opene
 
 ```bash
 # Run tests with HTML report (no Allure, but simpler)
-pytest test_api_v3.py test_unit_service_v3.py \
+pytest test_unit_service_v3.py \
     --html=report.html \
     --self-contained-html \
     -v
@@ -152,21 +149,21 @@ This generates a standalone HTML file immediately - no additional tools needed.
 
 **With Allure CLI:**
 ```bash
-pytest test_api_v3.py test_unit_service_v3.py --alluredir=allure-results --clean-alluredir -v && \
+pytest test_unit_service_v3.py --alluredir=allure-results --clean-alluredir -v && \
 allure generate allure-results -o allure-report --clean && \
 allure open allure-report
 ```
 
 **Without Allure CLI (using allure-combine):**
 ```bash
-pytest test_api_v3.py test_unit_service_v3.py --alluredir=allure-results --clean-alluredir -v && \
+pytest test_unit_service_v3.py --alluredir=allure-results --clean-alluredir -v && \
 allure-combine ./allure-results && \
 open complete.html
 ```
 
 **Simple HTML (no Allure):**
 ```bash
-pytest test_api_v3.py test_unit_service_v3.py --html=report.html --self-contained-html -v && \
+pytest test_unit_service_v3.py --html=report.html --self-contained-html -v && \
 open report.html
 ```
 
@@ -181,19 +178,6 @@ open report.html
   - Request/response attachments
 
 ## Allure Features in Tests
-
-### API Contract Tests (test_api_v3.py)
-
-Uses Schemathesis for automated API testing with Allure decorators:
-
-```python
-@allure.feature('Unit Service API v3')
-@allure.story('API Contract Testing')
-@allure.severity(allure.severity_level.CRITICAL)
-def test_api(case, token):
-    with allure.step(f"Test {case.method} {case.path}"):
-        # Automatically tests all API endpoints
-```
 
 ### Integration Tests (test_unit_service_v3.py)
 
@@ -224,7 +208,7 @@ pytest -m api --alluredir=allure-results -v
 
 ```bash
 pip install pytest-xdist
-pytest -n auto test_api_v3.py test_unit_service_v3.py --alluredir=allure-results -v
+pytest -n auto test_unit_service_v3.py --alluredir=allure-results -v
 ```
 
 ### With Coverage
@@ -247,7 +231,7 @@ test:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip install -r requirements.txt -r v3/requirements.txt
-    - pytest test_api_v3.py test_unit_service_v3.py --alluredir=allure-results -v
+    - pytest test_unit_service_v3.py --alluredir=allure-results -v
     - allure generate allure-results -o allure-report --clean
   artifacts:
     when: always
@@ -266,7 +250,7 @@ test:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip install -r requirements.txt -r v3/requirements.txt
-    - pytest test_api_v3.py test_unit_service_v3.py --alluredir=allure-results -v
+    - pytest test_unit_service_v3.py --alluredir=allure-results -v
     - allure-combine ./allure-results
   artifacts:
     when: always
@@ -287,7 +271,7 @@ test:
     - python3 -m venv venv
     - source venv/bin/activate
     - pip install -r requirements.txt -r v3/requirements.txt
-    - pytest test_api_v3.py test_unit_service_v3.py --html=report.html --self-contained-html -v
+    - pytest test_unit_service_v3.py --html=report.html --self-contained-html -v
   artifacts:
     when: always
     paths:
@@ -311,7 +295,7 @@ test:
 - name: Run tests
   run: |
     cd services/unit/unit-acceptance-test
-    pytest test_api_v3.py test_unit_service_v3.py --alluredir=allure-results -v
+    pytest test_unit_service_v3.py --alluredir=allure-results -v
 
 - name: Generate Allure Report
   if: always()

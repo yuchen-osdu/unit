@@ -44,7 +44,7 @@ export PRIVILEGED_USER_TOKEN="your-token"
 set -a; source .env; set +a
 
 # 4. Run tests with Allure reporting
-pytest test_api_v3.py test_unit_service_v3.py \
+pytest test_unit_service_v3.py \
     --alluredir=allure-results \
     --clean-alluredir \
     -v

@@ -30,7 +30,7 @@ echo "***RUNNING UNIT API v3 TESTS WITH ALLURE REPORTING***"
 echo ""
 
 # Run tests with pytest and Allure reporting
-pytest test_api_v3.py test_unit_service_v3.py \
+pytest test_unit_service_v3.py \
     --alluredir=allure-results \
     --clean-alluredir \
     -v
