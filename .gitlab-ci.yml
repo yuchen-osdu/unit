@@ -21,10 +21,10 @@ variables:
 
   ACCEPTANCE_TEST_DIR: $CI_PROJECT_DIR/unit-acceptance-test
   CIMPL_BAREMETAL_PYTHON_INT_TEST_SUBDIR: $CI_PROJECT_DIR/unit-acceptance-test
+  # Discover v2 and v3 OpenAPI specs via springdoc swagger-config.
+  # Do not set CIMPL_OPENAPI_YAML_ROUTE or CIMPL_OPENAPI_SPEC_PATH — those bypass
+  # discovery and validate a single version only.
   CIMPL_OPENAPI_CONFIG_ROUTE: /api/unit/api-docs/swagger-config
-  # Java service with Python acceptance tests — override the Python->JSON auto-detection
-  # so the openapi-spec check fetches the YAML spec served by springdoc
-  CIMPL_OPENAPI_YAML_ROUTE: /api/unit/api-docs/v3
 
 .maven:
   image: maven:3.9.3-eclipse-temurin-17
