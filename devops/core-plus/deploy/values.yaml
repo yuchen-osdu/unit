@@ -43,7 +43,7 @@ istio:
       - "/api/unit/swagger-ui.html"
       - "/api/unit/swagger-ui/*"
       - "/api/unit/swagger-resources"
-      - "/api/unit/swagger-config"
+      - "/api/unit/api-docs/swagger-config"
       - "/api/unit/_ah/liveness_check"
       - "/api/unit/_ah/readiness_check"
       # versioned paths (expanded to /api/unit/<version>/<path>)
