@@ -63,7 +63,7 @@
         <dependency>
             <groupId>org.opengroup.osdu.core.aws</groupId>
             <artifactId>os-core-lib-aws</artifactId>
-            <version>6.0.0</version>
+            <version>8.1.0</version>
         </dependency>
         <!-- os-core-common 7.x declares lettuce-core as provided (CVE-2025-58057); declare
              it here so os-core-lib-aws's CacheFactory.getRedisCache can resolve
