@@ -1,0 +1,7 @@
+variables:
+  CIMPL_SERVICE: unit
+  CIMPL_INT_TEST_TYPE: python
+
+cimpl-containerize-gitlab:
+  needs:
+    - "compile-and-unit-test"
