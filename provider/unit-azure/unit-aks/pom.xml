@@ -25,7 +25,7 @@
         <resteasy.version>3.6.2.Final</resteasy.version>
         <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
         <core-lib-azure.version>3.0.1</core-lib-azure.version>
-        <org-eclipse-jetty.version>12.1.6</org-eclipse-jetty.version>
+        <org-eclipse-jetty.version>12.1.11</org-eclipse-jetty.version>
     </properties>
 
     <dependencies>
