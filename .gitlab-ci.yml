@@ -25,7 +25,7 @@ variables:
   # Do not set CIMPL_OPENAPI_YAML_ROUTE or CIMPL_OPENAPI_SPEC_PATH — those bypass
   # discovery and validate a single version only.
   CIMPL_OPENAPI_CONFIG_ROUTE: /api/unit/api-docs/swagger-config
-
+  
 .maven:
   image: maven:3.9.3-eclipse-temurin-17
   tags: ['osdu-medium']
