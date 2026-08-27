@@ -54,7 +54,6 @@
         <module>unit-core-plus</module>
         <module>provider/unit-gc/unit-gke</module>
         <module>provider/unit-azure/unit-aks</module>
-        <module>provider/unit-aws</module>
         <module>provider/unit-ibm/unit-ocp</module>
     </modules>
 
@@ -221,12 +220,6 @@
             <modules>
                 <module>unit-core</module>
                 <module>unit-core-plus</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>aws</id>
-            <modules>
-                <module>provider/unit-aws</module>
             </modules>
         </profile>
         <profile>
