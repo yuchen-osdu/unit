@@ -21,60 +21,6 @@ The following software have components provided under the terms of this license:
 - AMQP 1.0 JMS Spring Boot Starter (from https://github.com/amqphub/amqp-10-jms-spring-boot, https://repo1.maven.org/maven2/org/amqphub/spring/amqp-10-jms-spring-boot-starter)
 - ASM Core (from http://asm.ow2.io/, http://asm.ow2.org/)
 - ASM based accessors helper used by json-smart (from https://urielch.github.io/)
-- AWS Cryptographic Material Providers Library (from https://github.com/aws/aws-cryptographic-material-providers-library)
-- AWS Database Encryption SDK for DynamoDB (from https://github.com/aws/aws-database-encryption-sdk-dynamodb)
-- AWS Event Stream (from https://github.com/awslabs/aws-eventstream-java)
-- AWS Java SDK :: AWS CRT Core (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: AWS Core (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Annotations (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Arns (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Auth (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Checksums (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Checksums SPI (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Core :: Protocols :: AWS Json Protocol (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Core :: Protocols :: AWS Query Protocol (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Core :: Protocols :: AWS Xml Protocol (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Core :: Protocols :: Json Utils (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Core :: Protocols :: Protocol Core (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: DynamoDB :: Enhanced Client (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Endpoints SPI (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: HTTP Auth (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: HTTP Auth AWS (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: HTTP Auth Event Stream (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: HTTP Auth SPI (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: HTTP Client Interface (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: HTTP Clients :: Apache (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: HTTP Clients :: Netty Non-Blocking I/O (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Identity SPI (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Metrics SPI (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Profiles (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Regions (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Retries (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Retries API (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: SDK Core (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: AWS KMS (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: AWS STS (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: AWS Secrets Manager (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: AWS Simple Systems Management (SSM) (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: Amazon CloudWatch Logs (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: Amazon Cognito Identity Provider Service (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: Amazon DynamoDB (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: Amazon S3 (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: Amazon SNS (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Services :: Amazon SQS (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Third Party :: Jackson-core (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK :: Utilities (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for AWS KMS (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for AWS STS (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for AWS Secrets Manager (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for Amazon CloudWatch Logs (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for Amazon Cognito Identity Provider Service (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for Amazon DynamoDB (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for Amazon S3 (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for Amazon SNS (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for Amazon SQS (from https://aws.amazon.com/sdkforjava)
-- AWS Java SDK for the AWS Simple Systems Management (SSM) Service (from https://aws.amazon.com/sdkforjava)
-- AWS SDK for Java - Core (from https://aws.amazon.com/sdkforjava)
 - Adapter: RxJava (from https://github.com/square/retrofit)
 - Apache Commons BeanUtils (from http://commons.apache.org/proper/commons-beanutils/, https://commons.apache.org/proper/commons-beanutils, https://repo1.maven.org/maven2/commons-beanutils/commons-beanutils)
 - Apache Commons Codec (from http://commons.apache.org/proper/commons-codec/, https://commons.apache.org/proper/commons-codec/)
@@ -90,10 +36,8 @@ The following software have components provided under the terms of this license:
 - Apache Log4j SLF4J 2.0 Binding (from https://logging.apache.org/log4j/3.x/)
 - Apache Log4j SLF4J Binding (from https://logging.apache.org/log4j/3.x/, https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-slf4j-impl)
 - Apache Log4j to SLF4J Adapter (from https://logging.apache.org/log4j/3.x/, https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-to-slf4j)
-- AssertJ Core (from https://assertj.github.io/doc/#assertj-core)
 - Asynchronous Http Client (from https://github.com/AsyncHttpClient/async-http-client, https://repo1.maven.org/maven2/org/asynchttpclient/async-http-client)
 - Asynchronous Http Client Netty Utils (from http://github.com/AsyncHttpClient/async-http-client, https://repo1.maven.org/maven2/org/asynchttpclient/async-http-client-netty-utils)
-- Awaitility (from http://awaitility.org/)
 - Bean Validation API (from http://beanvalidation.org, http://beanvalidation.org/)
 - Byte Buddy (without dependencies) (from https://bytebuddy.net/, https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy)
 - Byte Buddy Java agent (from https://bytebuddy.net/, https://repo1.maven.org/maven2/net/bytebuddy/byte-buddy-agent)
@@ -119,12 +63,9 @@ The following software have components provided under the terms of this license:
 - JJWT :: Extensions :: Jackson (from https://github.com/jwtk/jjwt)
 - JJWT :: Impl (from https://github.com/jwtk/jjwt)
 - JJWT :: Legacy Transitive Dependency Jar (from https://github.com/jwtk/jjwt)
-- JMES Path Query library (from https://aws.amazon.com/sdkforjava)
 - JSON Small and Fast Parser (from https://repo1.maven.org/maven2/net/minidev/json-smart, https://urielch.github.io/)
-- JSON library from Android SDK (from http://developer.android.com/sdk)
-- JSONassert (from http://github.com/skyscreamer/yoga, https://github.com/skyscreamer/JSONassert)
 - JSR107 API and SPI (from https://github.com/jsr107/jsr107spec)
-- JSpecify annotations (from http://jspecify.org/)
+- JSpecify annotations (from https://jspecify.dev/)
 - Jackson dataformat: CBOR (from http://github.com/FasterXML/jackson-dataformats-binary)
 - Jackson datatype: JSR310 (from http://wiki.fasterxml.com/JacksonModuleJSR310, https://github.com/FasterXML/jackson-modules-java8, https://repo1.maven.org/maven2/com/fasterxml/jackson/datatype/jackson-datatype-jsr310)
 - Jackson datatype: Joda (from http://wiki.fasterxml.com/JacksonModuleJoda, https://github.com/FasterXML/jackson-datatype-joda)
@@ -188,12 +129,12 @@ The following software have components provided under the terms of this license:
 - Nimbus JOSE+JWT (from https://bitbucket.org/connect2id/nimbus-jose-jwt, https://bitbucket.org/nimbusds/nimbus-jose-jwt)
 - Nimbus LangTag (from https://bitbucket.org/connect2id/nimbus-language-tags)
 - Non-Blocking Reactive Foundation for the JVM (from https://github.com/reactor/reactor, https://github.com/reactor/reactor-core)
-- OAuth 2.0 SDK with OpenID Connect extensions (from https://bitbucket.org/connect2id/oauth-2.0-sdk-with-openid-connect-extensions)
+- OAuth 2.0 SDK with OpenID Connect and Federation extensions (from https://bitbucket.org/connect2id/oauth-2.0-sdk-with-openid-connect-extensions)
 - Objenesis (from https://objenesis.org/, https://repo1.maven.org/maven2/org/objenesis/objenesis)
-- OkHttp (from https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp, https://square.github.io/okhttp/)
-- OkHttp Logging Interceptor (from https://github.com/square/okhttp, https://repo1.maven.org/maven2/com/squareup/okhttp3/logging-interceptor, https://square.github.io/okhttp/)
+- OkHttp (from https://lysine.dev/okhttp/, https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp, https://square.github.io/okhttp/)
+- OkHttp Logging Interceptor (from https://github.com/square/okhttp, https://lysine.dev/okhttp/, https://repo1.maven.org/maven2/com/squareup/okhttp3/logging-interceptor, https://square.github.io/okhttp/)
 - OkHttp URLConnection (from https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp-urlconnection, https://square.github.io/okhttp/)
-- Okio (from https://github.com/square/okio/, https://repo1.maven.org/maven2/com/squareup/okio/okio)
+- Okio (from https://github.com/lysine-dev/okio/, https://github.com/square/okio/, https://repo1.maven.org/maven2/com/squareup/okio/okio)
 - OpenCensus (from https://github.com/census-instrumentation/opencensus-java)
 - OpenTelemetry Java (from https://github.com/open-telemetry/opentelemetry-java)
 - Plexus Common Utilities (from http://plexus.codehaus.org/plexus-utils, https://codehaus-plexus.github.io/plexus-utils/, https://repo1.maven.org/maven2/org/codehaus/plexus/plexus-utils)
@@ -202,7 +143,6 @@ The following software have components provided under the terms of this license:
 - Redisson (from http://redisson.org, https://redisson.pro/)
 - Retrofit (from https://github.com/square/retrofit, https://repo1.maven.org/maven2/com/squareup/retrofit2/retrofit)
 - RxJava (from https://github.com/ReactiveX/RxJava)
-- Smithy :: Dafny :: Conversion (from https://github.com/smithy-lang/smithy)
 - SnakeYAML (from http://code.google.com/p/snakeyaml/, http://www.snakeyaml.org, https://bitbucket.org/snakeyaml/snakeyaml)
 - Spring AOP (from http://www.springframework.org, https://github.com/spring-projects/spring-framework, https://repo1.maven.org/maven2/org/springframework/spring-aop)
 - Spring Beans (from http://www.springframework.org, https://github.com/SpringSource/spring-framework, https://github.com/spring-projects/spring-framework, https://repo1.maven.org/maven2/org/springframework/spring-beans)
@@ -217,9 +157,6 @@ The following software have components provided under the terms of this license:
 - Spring Boot Logging Starter (from http://projects.spring.io/spring-boot/, https://projects.spring.io/spring-boot/#/spring-boot-parent/spring-boot-starters/spring-boot-starter-logging, https://spring.io/projects/spring-boot)
 - Spring Boot Security Starter (from http://projects.spring.io/spring-boot/, https://spring.io/projects/spring-boot)
 - Spring Boot Starter (from http://projects.spring.io/spring-boot/, https://spring.io/projects/spring-boot)
-- Spring Boot Test (from http://projects.spring.io/spring-boot/, https://spring.io/projects/spring-boot)
-- Spring Boot Test Auto-Configure (from http://projects.spring.io/spring-boot/, https://spring.io/projects/spring-boot)
-- Spring Boot Test Starter (from http://projects.spring.io/spring-boot/, https://spring.io/projects/spring-boot)
 - Spring Boot Tomcat Starter (from http://projects.spring.io/spring-boot/, https://projects.spring.io/spring-boot/#/spring-boot-parent/spring-boot-starters/spring-boot-starter-tomcat, https://spring.io/projects/spring-boot)
 - Spring Boot Validation Starter (from http://projects.spring.io/spring-boot/, https://projects.spring.io/spring-boot/, https://spring.io/projects/spring-boot)
 - Spring Boot Web Starter (from http://projects.spring.io/spring-boot/, https://spring.io/projects/spring-boot)
@@ -233,7 +170,6 @@ The following software have components provided under the terms of this license:
 - Spring Security - Core (from http://spring.io/spring-security, https://repo1.maven.org/maven2/org/springframework/security/spring-security-core, https://spring.io/projects/spring-security, https://spring.io/spring-security)
 - Spring Security - Namespace Configuration Module (from http://spring.io/spring-security, https://repo1.maven.org/maven2/org/springframework/security/spring-security-config, https://spring.io/projects/spring-security, https://spring.io/spring-security)
 - Spring Security - Web Application Security Module (from http://spring.io/spring-security, https://repo1.maven.org/maven2/org/springframework/security/spring-security-web, https://spring.io/projects/spring-security, https://spring.io/spring-security)
-- Spring TestContext Framework (from https://github.com/SpringSource/spring-framework, https://github.com/spring-projects/spring-framework)
 - Spring Transaction (from https://github.com/SpringSource/spring-framework, https://github.com/spring-projects/spring-framework)
 - Spring Web (from http://www.springframework.org, https://github.com/spring-projects/spring-framework, https://repo1.maven.org/maven2/org/springframework/spring-web)
 - Spring Web MVC (from https://github.com/spring-projects/spring-framework, https://repo1.maven.org/maven2/org/springframework/spring-webmvc)
@@ -247,16 +183,13 @@ The following software have components provided under the terms of this license:
 - java-cloudant (from https://cloudant.com, https://cloudant.com/)
 - javatuples (from http://www.javatuples.org)
 - javax.annotation API (from http://jcp.org/en/jsr/detail?id=250)
-- jose4j (from https://bitbucket.org/b_c/jose4j/)
-- json-path (from http://code.google.com/p/json-path/, https://github.com/jayway/JsonPath)
-- micrometer-commons (from https://github.com/micrometer-metrics/micrometer)
-- micrometer-core (from https://github.com/micrometer-metrics/micrometer)
-- micrometer-jakarta9 (from https://github.com/micrometer-metrics/micrometer)
-- micrometer-observation (from https://github.com/micrometer-metrics/micrometer)
+- micrometer-commons (from https://github.com/micrometer-metrics/micrometer-commercial)
+- micrometer-core (from https://github.com/micrometer-metrics/micrometer, https://github.com/micrometer-metrics/micrometer-commercial)
+- micrometer-jakarta9 (from https://github.com/micrometer-metrics/micrometer-commercial)
+- micrometer-observation (from https://github.com/micrometer-metrics/micrometer-commercial)
 - micrometer-registry-azure-monitor (from https://github.com/micrometer-metrics/micrometer)
 - org.apiguardian:apiguardian-api (from https://github.com/apiguardian-team/apiguardian)
 - org.opentest4j:opentest4j (from https://github.com/ota4j-team/opentest4j)
-- org.xmlunit:xmlunit-core (from http://www.xmlunit.org/, https://www.xmlunit.org/)
 - resilience4j (from https://github.com/resilience4j/resilience4j, https://resilience4j.readme.io/, ttps://resilience4j.readme.io)
 - springdoc-openapi-starter-common (from https://springdoc.org/)
 - springdoc-openapi-starter-webmvc-api (from https://springdoc.org/)
@@ -303,8 +236,6 @@ The following software have components provided under the terms of this license:
 - Angus Activation Registries (from https://repo1.maven.org/maven2/org/eclipse/angus/angus-activation)
 - AspectJ Weaver (from http://www.aspectj.org, https://www.eclipse.org/aspectj/)
 - FindBugs-jsr305 (from http://findbugs.sourceforge.net/)
-- Hamcrest (from http://hamcrest.org/JavaHamcrest/)
-- Hamcrest Core (from http://hamcrest.org/, http://hamcrest.org/JavaHamcrest/, https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core)
 - Jakarta Activation API (from https://github.com/eclipse-ee4j/jaf, https://github.com/jakartaee/jaf-api, https://repo1.maven.org/maven2/jakarta/activation/jakarta.activation-api)
 - Jakarta Annotations API (from https://projects.eclipse.org/projects/ee4j.ca)
 - Jakarta Messaging API (from https://projects.eclipse.org/projects/ee4j.jms)
@@ -329,13 +260,6 @@ BSL-1.0
 The following software have components provided under the terms of this license:
 
 - Jackson-core (from http://wiki.fasterxml.com/JacksonHome, https://github.com/FasterXML/jackson-core)
-
-========================================================================
-BouncyCastle
-========================================================================
-The following software have components provided under the terms of this license:
-
-- Bouncy Castle Provider (from http://www.bouncycastle.org/java.html, https://www.bouncycastle.org/download/bouncy-castle-java/, https://www.bouncycastle.org/java.html)
 
 ========================================================================
 CC-BY-2.5
@@ -380,13 +304,6 @@ The following software have components provided under the terms of this license:
 - tomcat-embed-core (from http://tomcat.apache.org/)
 
 ========================================================================
-CPL-1.0
-========================================================================
-The following software have components provided under the terms of this license:
-
-- JUnit (from http://junit.org, http://junit.org/)
-
-========================================================================
 DOC
 ========================================================================
 The following software have components provided under the terms of this license:
@@ -406,7 +323,6 @@ EPL-1.0
 ========================================================================
 The following software have components provided under the terms of this license:
 
-- JUnit Vintage Engine (from http://junit.org/junit5/, https://junit.org/junit5/)
 - Jetty :: Http Utility (from http://www.eclipse.org/jetty, https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-http)
 - Jetty :: IO Utility (from http://www.eclipse.org/jetty, https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-io)
 - Jetty :: Server Core (from http://www.eclipse.org/jetty, https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-server)
@@ -429,7 +345,6 @@ The following software have components provided under the terms of this license:
 - JUnit Jupiter Params (from http://junit.org/junit5/, https://junit.org/junit5/)
 - JUnit Platform Commons (from http://junit.org/junit5/, https://junit.org/junit5/)
 - JUnit Platform Engine API (from http://junit.org/junit5/, https://junit.org/junit5/)
-- JUnit Vintage Engine (from http://junit.org/junit5/, https://junit.org/junit5/)
 - Jakarta Activation API (from https://github.com/eclipse-ee4j/jaf, https://github.com/jakartaee/jaf-api, https://repo1.maven.org/maven2/jakarta/activation/jakarta.activation-api)
 - Jakarta Annotations API (from https://projects.eclipse.org/projects/ee4j.ca)
 - Jakarta Messaging API (from https://projects.eclipse.org/projects/ee4j.jms)
@@ -512,7 +427,6 @@ The following software have components provided under the terms of this license:
 - Azure Java Client Authentication Library for AutoRest (from https://github.com/Azure/autorest-clientruntime-for-java)
 - Azure Java Client Runtime for ARM (from https://github.com/Azure/autorest-clientruntime-for-java)
 - Azure Java Client Runtime for AutoRest (from https://github.com/Azure/autorest-clientruntime-for-java)
-- DafnyRuntime (from https://github.com/dafny-lang/dafny)
 - Extensions on Apache Proton-J library (from https://github.com/Azure/qpid-proton-j-extensions)
 - JUL to SLF4J bridge (from http://www.slf4j.org, http://www.slf4j.org/)
 - Jackson-core (from http://wiki.fasterxml.com/JacksonHome, https://github.com/FasterXML/jackson-core)
@@ -565,13 +479,11 @@ The following software have components provided under the terms of this license:
 - Spring Cloud Azure Starter (from https://microsoft.github.io/spring-cloud-azure)
 - Spring Cloud Azure Starter Active Directory (from https://microsoft.github.io/spring-cloud-azure)
 - Spring Data for Azure Cosmos DB SQL API (from https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/cosmos/azure-spring-data-cosmos, https://github.com/Azure/azure-sdk-for-java/tree/master/sdk/spring/azure-spring-data-cosmos)
-- System Stubs Core (from https://github.com/webcompere/system-stubs/)
 - adal4j (from https://github.com/AzureAD/azure-activedirectory-library-for-java)
 - javamsalruntime (from https://github.com/AzureAD/microsoft-authentication-library-for-cpp)
 - jwks-rsa-java (from https://github.com/auth0/jwks-rsa-java)
-- micrometer-commons (from https://github.com/micrometer-metrics/micrometer)
-- micrometer-core (from https://github.com/micrometer-metrics/micrometer)
-- mockito-inline (from http://mockito.org, https://github.com/mockito/mockito)
+- micrometer-commons (from https://github.com/micrometer-metrics/micrometer-commercial)
+- micrometer-core (from https://github.com/micrometer-metrics/micrometer, https://github.com/micrometer-metrics/micrometer-commercial)
 - mockito-junit-jupiter (from https://github.com/mockito/mockito)
 - msal4j (from https://github.com/AzureAD/microsoft-authentication-library-for-java)
 - msal4j-brokers (from https://github.com/AzureAD/microsoft-authentication-library-for-java)
@@ -649,13 +561,6 @@ The following software have components provided under the terms of this license:
 
 - JSON in Java (from https://github.com/douglascrockford/JSON-java)
 - xml-apis (from https://repo1.maven.org/maven2/xml-apis/xml-apis)
-
-========================================================================
-unknown
-========================================================================
-The following software have components provided under the terms of this license:
-
-- JUnit (from http://junit.org, http://junit.org/)
 
 ========================================================================
 xpp
