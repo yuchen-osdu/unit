@@ -103,10 +103,10 @@
             <version>2.12.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- CVE-2025-67030: plexus-utils < 3.6.1, directory traversal -->
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <!-- CVE-2025-67030: plexus-utils < 3.6.1, directory traversal -->
             <version>3.6.2</version>
             <scope>test</scope>
         </dependency>

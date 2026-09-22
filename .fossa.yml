@@ -28,10 +28,6 @@ analyze:
       type: mvn
       target: provider/unit-azure/unit-aks/pom.xml
       path: .
-    - name: unit-aws
-      type: mvn
-      target: provider/unit-aws/pom.xml
-      path: .
     - name: unit-ocp
       type: mvn
       target: provider/unit-ibm/unit-ocp/pom.xml
