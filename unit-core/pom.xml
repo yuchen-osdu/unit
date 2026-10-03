@@ -7,10 +7,11 @@
     <parent>
         <groupId>org.opengroup.osdu.unit-service</groupId>
         <artifactId>unit-service</artifactId>
-        <version>0.30.0-SNAPSHOT</version>
+        <version>0.31.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>unit-core</artifactId>
+    <version>0.31.0-SNAPSHOT</version>
     <name>unit-core</name>
     <description>Unit service core</description>
 
@@ -102,10 +103,11 @@
             <version>2.12.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- CVE-2025-67030: plexus-utils < 3.6.1, directory traversal -->
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <version>3.5.1</version>
+            <version>3.6.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
