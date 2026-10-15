@@ -63,7 +63,6 @@
     <modules>
         <module>unit-core</module>
         <module>unit-core-plus</module>
-        <module>provider/unit-gc/unit-gke</module>
         <module>provider/unit-azure/unit-aks</module>
         <module>provider/unit-ibm/unit-ocp</module>
     </modules>
@@ -315,12 +314,6 @@
             <id>ibm</id>
             <modules>
                 <module>provider/unit-ibm/unit-ocp</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>gc</id>
-            <modules>
-                <module>provider/unit-gc/unit-gke</module>
             </modules>
         </profile>
     </profiles>
