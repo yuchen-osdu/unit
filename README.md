@@ -133,6 +133,4 @@ VSTS release/deployment requires the following environment variables:
 
 ### Google Cloud
 
-Instructions for deployment the Google Cloud unit-service to App Engine can be found [here](./provider/unit-gc/unit-gae/README.md)
-
-Instructions for deployment the Google Cloud unit-service to GKE can be found [here](./provider/unit-gc/unit-gke/README.md)
+The Google Cloud implementation of the Unit service is maintained in [gc-osdu-services](https://community.opengroup.org/osdu/platform/deployment-and-operations/base-containers-gcp/gc-osdu-services/-/tree/main/system/reference_and_helper_services/unit).
