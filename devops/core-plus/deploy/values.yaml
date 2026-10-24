@@ -49,3 +49,6 @@ istio:
       # versioned paths (expanded to /api/unit/<version>/<path>)
       - "_ah/liveness_check"
       - "_ah/readiness_check"
+      # Public version info (expanded to /api/unit/<version>/info)
+      - "info"
+      - "/api/unit/api-docs.yaml/*"

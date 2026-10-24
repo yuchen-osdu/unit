@@ -7,7 +7,6 @@ trigger:
     exclude:
       - /**/*.md
       - .gitignore
-      - /provider/unit-gc
       - /provider/unit-aws
       - /provider/unit-ibm
 

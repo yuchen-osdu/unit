@@ -16,7 +16,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Setup Apache Maven
 - Setup AdoptOpenJDK
-- Setup GCloud SDK
 - Install Eclipse (or other IDE) to run applications
 - Set up environment variables for Apache Maven and AdoptOpenJDK. For example M2_HOME, JAVA_HOME, etc.
 - Add a configuration for build project in Eclipse(or other IDE)
@@ -88,7 +87,7 @@ mvn clean install -DskipTests
 After configuring your environment as specified above, you can follow these steps to build and run the application. These steps should be invoked from the *repository root.*
 
 ```bash
-cd provider/unit-gc/unit-gke && mvn spring-boot:run
+cd unit-core-plus && mvn spring-boot:run
 ```
 
 ## Testing
@@ -156,7 +155,7 @@ The following parameters are expected as environment variables:
 Go to the provider folder:
 
 ```bash
-cd unit_test_$PROVIDER_NAME/ # e.g. unit_test_gc
+cd unit_test_$PROVIDER_NAME/ # e.g. unit_test_baremetal
 ```
 
 To set up a virtual environment:
