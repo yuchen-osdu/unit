@@ -62,7 +62,6 @@
         <module>unit-core</module>
         <module>unit-core-plus</module>
         <module>provider/unit-azure/unit-aks</module>
-        <module>provider/unit-ibm/unit-ocp</module>
     </modules>
 
     <repositories>
@@ -309,12 +308,6 @@
             <id>azure</id>
             <modules>
                 <module>provider/unit-azure/unit-aks</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>ibm</id>
-            <modules>
-                <module>provider/unit-ibm/unit-ocp</module>
             </modules>
         </profile>
     </profiles>
