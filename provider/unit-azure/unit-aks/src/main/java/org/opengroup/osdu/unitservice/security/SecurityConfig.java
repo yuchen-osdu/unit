@@ -1,7 +1,6 @@
 package org.opengroup.osdu.unitservice.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.Filter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
@@ -62,13 +61,12 @@ public class SecurityConfig implements AccessDeniedHandler, AuthenticationEntryP
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
-                .and()
-                .authorizeRequests()
-                .requestMatchers(AUTH_WHITELIST).permitAll()
-                .and()
-                .addFilterBefore((Filter) authFilter, (Class<? extends Filter>) UsernamePasswordAuthenticationFilter.class);
+        http.csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.NEVER))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
