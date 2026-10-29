@@ -1,9 +1,6 @@
 package org.opengroup.osdu.unitservice.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.Filter;
 import org.opengroup.osdu.unitservice.middleware.AuthenticationRequestFilter;
 import org.opengroup.osdu.unitservice.middleware.AuthenticationService;
 import org.opengroup.osdu.unitservice.util.AppError;
@@ -11,8 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.config.annotation.SecurityBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -29,7 +25,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 @Configuration
 public class SecurityConfig implements AccessDeniedHandler, AuthenticationEntryPoint {
 
@@ -73,13 +69,12 @@ public class SecurityConfig implements AccessDeniedHandler, AuthenticationEntryP
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
-                .and()
-                .authorizeRequests()
-                .requestMatchers(AUTH_WHITELIST).permitAll()
-                .and()
-                .addFilterBefore((Filter) authFilter, (Class<? extends Filter>) UsernamePasswordAuthenticationFilter.class);
+        http.csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.NEVER))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
