@@ -22,8 +22,9 @@ Both APIs are available in Swagger at <https://[Unit_Service_Host>]/api/unit/swa
 
 ## Prerequisites
 
-1. The project builds with [maven](https://maven.apache.org/). Make sure maven is installed locally.
-1. The project requires the [Lombok](https://projectlombok.org/) plug-in installed for your IDE.
+1. The project builds with [Maven](https://maven.apache.org/). Make sure Maven is installed locally.
+2. [JDK 25](https://adoptium.net/). Set `JAVA_HOME` accordingly.
+3. The project requires the [Lombok](https://projectlombok.org/) plug-in installed for your IDE.
 
 ### Build service and run unit tests
 
@@ -133,6 +134,4 @@ VSTS release/deployment requires the following environment variables:
 
 ### Google Cloud
 
-Instructions for deployment the Google Cloud unit-service to App Engine can be found [here](./provider/unit-gc/unit-gae/README.md)
-
-Instructions for deployment the Google Cloud unit-service to GKE can be found [here](./provider/unit-gc/unit-gke/README.md)
+The Google Cloud implementation of the Unit service is maintained in [gc-osdu-services](https://community.opengroup.org/osdu/platform/deployment-and-operations/base-containers-gcp/gc-osdu-services/-/tree/main/system/reference_and_helper_services/unit).
