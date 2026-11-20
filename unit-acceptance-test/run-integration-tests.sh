@@ -31,7 +31,7 @@ echo ""
 
 # Run tests with pytest and Allure reporting
 pytest test_unit_service_v3.py \
-    --alluredir=allure-results \
+    --alluredir=cimpl/allure-results \
     --clean-alluredir \
     -v
 

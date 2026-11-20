@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>org.opengroup.osdu.unit-service</groupId>
 		<artifactId>unit-service</artifactId>
-		<version>0.30.0-SNAPSHOT</version>
+		<version>${revision}</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -19,13 +19,17 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
-		<org-eclipse-jetty.version>12.1.6</org-eclipse-jetty.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.opengroup.osdu.unit-service</groupId>
 			<artifactId>unit-core</artifactId>
+		</dependency>
+		<!-- os-core-common declares lettuce-core as provided; GsonCodecFactory needs RedisCodec at runtime (Epic 82 tip 16) -->
+		<dependency>
+			<groupId>io.lettuce</groupId>
+			<artifactId>lettuce-core</artifactId>
 		</dependency>
 		<!-- Compile/runtime dependencies -->
 		<dependency>
@@ -52,6 +56,7 @@
 			<artifactId>logback-jackson</artifactId>
 			<version>0.1.5</version>
 		</dependency>
+		<!-- Jackson 2 for the logback-contrib JSON layout; the service itself uses Jackson 3 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>

@@ -9,16 +9,15 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 - [Maven 3.8.0+](https://maven.apache.org/download.cgi)
-- [AdoptOpenJDK17](https://adoptopenjdk.net/)
+- [JDK 25](https://adoptium.net/) (Epic 82 Java 25 baseline)
 - [Lombok 1.18 or later](https://projectlombok.org/setup/maven)
 
 ### Installation
 
 - Setup Apache Maven
-- Setup AdoptOpenJDK
-- Setup GCloud SDK
+- Setup JDK 25
 - Install Eclipse (or other IDE) to run applications
-- Set up environment variables for Apache Maven and AdoptOpenJDK. For example M2_HOME, JAVA_HOME, etc.
+- Set up environment variables for Apache Maven and JDK 25. For example M2_HOME, JAVA_HOME, etc.
 - Add a configuration for build project in Eclipse(or other IDE)
 
 ### Run Locally
@@ -43,7 +42,7 @@ Check that maven is installed:
 $ mvn --version
 Apache Maven 3.8.0
 Maven home: /usr/share/maven
-Java version: 17 vendor: AdoptOpenJDK, runtime: /usr/lib/jvm/jdk17/jre
+Java version: 25.0.4, vendor: Eclipse Adoptium, runtime: /usr/lib/jvm/temurin-25-jdk
 ...
 ```
 
@@ -88,7 +87,7 @@ mvn clean install -DskipTests
 After configuring your environment as specified above, you can follow these steps to build and run the application. These steps should be invoked from the *repository root.*
 
 ```bash
-cd provider/unit-gc/unit-gke && mvn spring-boot:run
+cd unit-core-plus && mvn spring-boot:run
 ```
 
 ## Testing
@@ -156,7 +155,7 @@ The following parameters are expected as environment variables:
 Go to the provider folder:
 
 ```bash
-cd unit_test_$PROVIDER_NAME/ # e.g. unit_test_gc
+cd unit_test_$PROVIDER_NAME/ # e.g. unit_test_baremetal
 ```
 
 To set up a virtual environment:
